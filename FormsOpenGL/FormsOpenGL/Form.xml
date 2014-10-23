@@ -1,0 +1,19 @@
+<Form>
+  <Rectangle>
+    id="rect1"
+    x="10"
+    y="10"
+    width="20"
+    height="10"
+    color="#808080"
+  </Rectangle>
+
+  <Triangle>
+    id="trian1"
+    x="40"
+    y="10"
+    width="20"
+    height="10"
+    color="#808080"
+  </Triangle>
+</Form>
