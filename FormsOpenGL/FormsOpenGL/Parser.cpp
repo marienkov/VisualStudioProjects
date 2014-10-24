@@ -19,7 +19,30 @@ const std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char
 	std::string currentLine;
 
 	if (file.is_open()) {
+		View* v = nullptr;
 		while (getline(file, currentLine)) {
+			int current = 0;
+			for (std::string::iterator it = currentLine.begin(); it != currentLine.end(); ++it, ++current) {
+				if (*it == ' ')
+					continue;
+
+				if ((*it) == OPEN_START_TAG) {
+					++it;
+					int start = ++current;
+					for (; it != currentLine.end(); ++it, ++current)
+						if ((*it) == CLOSE_START_TAG) {
+						parseRectangle(file, currentLine, current);
+							/*std::shared_ptr<std::string> nameValue = std::shared_ptr<std::string>(new std::string(currentLine.substr(start, current - start)));
+							std::shared_ptr<std::string> name = std::shared_ptr<std::string>(new std::string("name"));
+							std::shared_ptr<std::pair<std::string, std::string>> pair = std::shared_ptr<std::pair<std::string, std::string>>(new std::pair<>);*/
+					}
+				}
+
+			}
+
+
+
+
 			size_t start = currentLine.find_first_of(OPEN_START_TAG)+1;
 			size_t end = currentLine.find_first_of(CLOSE_START_TAG);
 			if (start != std::string::npos && end != std::string::npos && start < end) {
@@ -72,4 +95,41 @@ const std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char
 	file.close();
 
 	return viewList;
+}
+
+void Parser::parseRectangle(std::ifstream& file, std::string currentLine, int current) {
+		View* v = nullptr;
+		do {
+			std::string var;
+			std::string value;
+			int start = -1;
+			for (std::string::iterator it = currentLine.begin() + current; it != currentLine.end(); ++it, ++current) {
+				//DEVIDER_MARK
+				if ((*it) == DEVIDER_MARK) {
+						continue;
+				}
+				//ASSING_MARK
+				if ((*it) == ASSING_MARK) {
+					if (start != -1) {
+						var = currentLine.substr(start, current - start);
+						std::cout << "var = " << var << std::endl;
+					}
+					start = -1;
+					continue;
+				}
+				//VALUE_MARK
+				if ((*it) == VALUE_MARK) {
+					if (start != -1) {
+						value = currentLine.substr(start, current - start);
+						std::cout << "value = " << value << std::endl;
+						start = -1;
+					}
+					continue;
+				}
+				if (start == -1)
+					start = current;
+			}
+			current = 0;
+			start = 0;
+		} while (getline(file, currentLine));
 }
