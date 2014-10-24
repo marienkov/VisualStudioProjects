@@ -1,8 +1,8 @@
 <Form>
   <Rectangle>
     id  =  "rect1"
-    x="10"
-    y="10"
+    dx  =  "10"
+    y=""
     width="20"
     height="10"
     color="#808080"
