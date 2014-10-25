@@ -5,10 +5,15 @@
 #include <fstream>
 #include <iostream>
 #include "View.h"
+#include "Rectangle.h"
+#include "Triangle.h"
 
 class Parser
 {
 private:
+	const bool debugMode = true;
+	const std::string TAG = "Parser:   ";
+
 	const char OPEN_START_TAG = '\<';
 	const char CLOSE_START_TAG = '\>';
 	const char* OPEN_END_TAG = "\<\/";
@@ -18,14 +23,15 @@ private:
 	const char VALUE_MARK = '"';
 	const char DEVIDER_MARK = ' ';
 
-	const std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
+	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
+	std::list<std::string> supportedList;
 public:
 	Parser();
 	virtual ~Parser();
 
-	void setSupportedViews(const std::string[]);
-	void parseRectangle(std::ifstream& file, std::string currentLine, int current);
-	const std::shared_ptr<std::list<std::shared_ptr<View>>> parse(const char* file);
-	
+	void setSupportedViews(std::list<std::string>);
+	std::shared_ptr<View> parseRectangle(std::ifstream& file, std::string currentLine, int current);
+	std::shared_ptr<std::list<std::shared_ptr<View>>> parse(const char* file);
+	void log(std::string message);
 };
 

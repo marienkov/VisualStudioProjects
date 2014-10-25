@@ -1,18 +1,20 @@
 <Form>
   <Rectangle>
-    id  =  "rect1"
-    dx  =  "10"
-    y=""
-    width="20"
-    height="10"
-    color="#808080"
+id  =  "rect1"
+x  =  "10"
+y="7"
+width="20"
+height="10"
+color="808080"
   </Rectangle>
 
-  <Triangle>
-    id    ="tri  an1"    x="40"
-    y="10"
+  <Rectangle>    id  =  "rect2"    x  =  "66"    y="55"    width="26"    height="86"    color="146"  </Rectangle>
+  <Rectangle>
+    id  =  "rect1"
+    x  =  "10"
+    y="7"
     width="20"
     height="10"
-    color="#808080"
-  </Triangle>
+    color="808080"
+  </Rectangle>
 </Form>

@@ -5,7 +5,7 @@ View::View()
 {
 }
 
-View::View(std::string id, int x, int y, int width, int height)
+View::View(std::string id, int x, int y, int width, int height, int color)
 {
 }
 
@@ -31,4 +31,8 @@ void View::setWidth(int width){
 
 void View::setHeight(int height){
 	this->height = height;
+}
+
+void View::setColor(int color){
+	this->color = color;
 }
