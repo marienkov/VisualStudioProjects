@@ -7,6 +7,7 @@
 #include "View.h"
 #include "Rectangle.h"
 #include "Triangle.h"
+#include "map"
 
 class Parser
 {
@@ -24,13 +25,14 @@ private:
 	const char DEVIDER_MARK = ' ';
 
 	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
-	std::list<std::string> supportedList;
+	std::map<std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> supportedViewMap;
+	
+	std::shared_ptr<View> parseRectangle(std::ifstream& file, std::string currentLine, int current);
+	std::shared_ptr<View> parseTriangle(std::ifstream& file, std::string currentLine, int current);
+	void initSupportedViews();
 public:
 	Parser();
 	virtual ~Parser();
-
-	void setSupportedViews(std::list<std::string>);
-	std::shared_ptr<View> parseRectangle(std::ifstream& file, std::string currentLine, int current);
 	std::shared_ptr<std::list<std::shared_ptr<View>>> parse(const char* file);
 	void log(std::string message);
 };
