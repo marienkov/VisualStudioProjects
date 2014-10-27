@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,11 +65,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DrawerVisitor.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Parser.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="View.cpp" />
+    <ClCompile Include="Visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Form.xml">
@@ -76,10 +79,12 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawerVisitor.h" />
     <ClInclude Include="Parser.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="View.h" />
+    <ClInclude Include="Visitor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

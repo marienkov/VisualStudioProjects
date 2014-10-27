@@ -1,4 +1,5 @@
 #include "View.h"
+#include "Visitor.h"
 
 
 View::View()
@@ -35,4 +36,8 @@ void View::setHeight(int height){
 
 void View::setColor(int color){
 	this->color = color;
+}
+
+void View::accept(Visitor& visitor) {
+	std::cout << "View::accept(Visitor& visitor)" << std::endl;
 }

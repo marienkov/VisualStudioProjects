@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include "View.h"
-#include "Rectangle.h"
+#include "Button.h"
 #include "Triangle.h"
 #include "map"
 
@@ -27,7 +27,7 @@ private:
 	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
 	std::map<std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> supportedViewMap;
 	
-	std::shared_ptr<View> parseRectangle(std::ifstream& file, std::string currentLine, int current);
+	std::shared_ptr<View> parseButton(std::ifstream& file, std::string currentLine, int current);
 	std::shared_ptr<View> parseTriangle(std::ifstream& file, std::string currentLine, int current);
 	void initSupportedViews();
 public:
@@ -36,4 +36,3 @@ public:
 	std::shared_ptr<std::list<std::shared_ptr<View>>> parse(const char* file);
 	void log(std::string message);
 };
-

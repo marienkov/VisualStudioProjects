@@ -42,10 +42,10 @@ std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char* file
 	return viewList;
 }
 
-std::shared_ptr<View> Parser::parseRectangle(std::ifstream& file, std::string currentLine, int current) {
+std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string currentLine, int current) {
 	unsigned char validation = 0;
 	unsigned char validationSuccess = 63;
-	std::shared_ptr<Rectangle> rect = std::shared_ptr<Rectangle>(new Rectangle());
+	std::shared_ptr<Button> rect = std::shared_ptr<Button>(new Button());
 	do {
 		std::string var;
 		std::string value;
@@ -90,11 +90,11 @@ std::shared_ptr<View> Parser::parseRectangle(std::ifstream& file, std::string cu
 			}
 			if ((*it) == OPEN_END_TAG[0] && (*(it+1)) == OPEN_END_TAG[1]) {
 				if (validation != validationSuccess) {
-					log("InValid rectangle");
+					log("InValid Button");
 					rect.reset();
 					return rect;
 				}
-				log("Valid rectangle");
+				log("Valid Button");
 				return rect;
 			}
 			if (start == -1)
@@ -104,7 +104,7 @@ std::shared_ptr<View> Parser::parseRectangle(std::ifstream& file, std::string cu
 		}
 		current = 0;
 	} while (getline(file, currentLine));
-	log("InValid rectangle");
+	log("InValid Button");
 	rect.reset();
 	return rect;
 }
@@ -179,8 +179,8 @@ std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string cur
 void Parser::initSupportedViews() {
 	//Rectangel
 	std::pair <std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair1;
-	somePair1.first = "<Rectangle>";
-	somePair1.second = &Parser::parseRectangle;
+	somePair1.first = "<Button>";
+	somePair1.second = &Parser::parseButton;
 	supportedViewMap.insert(somePair1);
 
 	//Triangle

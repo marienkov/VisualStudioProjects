@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+class Visitor;
 
 class View
 {
@@ -19,5 +20,6 @@ public:
 	void setWidth(int);
 	void setHeight(int);
 	void setColor(int);
-};
 
+	virtual void accept(Visitor&);
+};
