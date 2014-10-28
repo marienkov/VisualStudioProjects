@@ -39,5 +39,5 @@ void View::setColor(int color){
 }
 
 void View::accept(Visitor& visitor) {
-	std::cout << "View::accept(Visitor& visitor)" << std::endl;
+	std::cout << "" << std::endl;
 }

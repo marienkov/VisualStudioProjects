@@ -4,7 +4,6 @@
 #include <memory>
 #include <fstream>
 #include <iostream>
-#include "View.h"
 #include "Button.h"
 #include "Triangle.h"
 #include "map"
