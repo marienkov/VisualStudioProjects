@@ -4,22 +4,22 @@ class Visitor;
 
 class View
 {
-private:
+protected:
 	std::string id;
-	int x, y;
-	int width, height;
-	int color;
+	int col;
 public:
 	View();
-	View(std::string,int,int,int,int,int);
+	View(std::string, int);
+	void setId(std::string);
+	void setColor(int);
+	virtual void accept(Visitor&);
 	virtual ~View();
 
-	void setId(std::string);
-	void setX(int);
-	void setY(int);
-	void setWidth(int);
-	void setHeight(int);
-	void setColor(int);
-
-	virtual void accept(Visitor&);
+	struct VertexCoord {
+	public:
+		VertexCoord();
+		VertexCoord(int, int, int);
+		~VertexCoord();
+		int x, y, z;
+	};
 };

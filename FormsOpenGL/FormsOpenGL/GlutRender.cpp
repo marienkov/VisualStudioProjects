@@ -78,7 +78,7 @@ void GlutRender::render() {
 	//! 
 	glVertexAttribPointer(Attrib_vertex, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	//! Disable VBO
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//! Draw
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -89,8 +89,9 @@ void GlutRender::render() {
 	glUseProgram(0);
 
 	checkOpenGLerror();
-
 	glutSwapBuffers();
+
+	glFlush();  // Render now
 
 	/*for (std::list<std::shared_ptr<View>>::iterator it = viewList->begin(); it != viewList->end(); ++it) {
 		it->get()->accept(drawerVisitor);
@@ -126,7 +127,8 @@ void GlutRender::checkOpenGLerror() {
 
 // Init GL
 void GlutRender::initGL() {
-	glClearColor(0,0,0,0);
+	glClearColor(1,0,0,0);
+
 	std::cout << "InitGL()" << std::endl;
 }
 
@@ -217,7 +219,7 @@ void GlutRender::initVBO()
 	};
 	// Put Vertex in VBO
 	glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
-
+	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
 }
 
@@ -235,11 +237,14 @@ void GlutRender::freeShader()
 void GlutRender::freeVBO()
 {
 	std::cout << "freeVBO()" << std::endl;
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glDeleteBuffers(1, &VBO);
 }
 
 void GlutRender::resizeWindow(int width, int height)
 {
+	//std::cout << "glViewport(0, 0, width, height);" << std::endl;
 	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-0.3, 0.6, -0.3, 0.3, -1., 1.);
 }

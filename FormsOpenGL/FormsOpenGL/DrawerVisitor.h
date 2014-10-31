@@ -9,4 +9,5 @@ public:
 	virtual ~DrawerVisitor();
 
 	void visit(Button*);
+	void visit(Triangle*);
 };
