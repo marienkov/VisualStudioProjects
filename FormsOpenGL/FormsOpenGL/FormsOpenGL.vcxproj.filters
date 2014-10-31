@@ -36,7 +36,10 @@
     <ClCompile Include="DrawerVisitor.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="GlutRender.cpp">
+    <ClCompile Include="Controller.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,7 +67,10 @@
     <ClInclude Include="DrawerVisitor.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="GlutRender.h">
+    <ClInclude Include="Controller.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

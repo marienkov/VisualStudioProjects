@@ -11,7 +11,7 @@
 class Parser
 {
 private:
-	const bool debugMode = true;
+	const bool debugMode = false;
 	const std::string TAG = "Parser:   ";
 
 	const char OPEN_START_TAG = '\<';
