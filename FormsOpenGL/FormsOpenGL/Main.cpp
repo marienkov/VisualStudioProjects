@@ -49,7 +49,8 @@ int main(int argc, char **argv) {
 	controller.setViewList(viewList);
 	glutReshapeFunc(Controller::resizeWindow);
 	glutMouseFunc(Controller::mouseAction);
-	glutKeyboardFunc(Controller::keyboardAction);
+	glutSpecialFunc(Controller::keyboardSpecialAction);
+	glutKeyboardFunc(Controller::keyboardPressedAction);
 
 	//Init render
 	Render render;

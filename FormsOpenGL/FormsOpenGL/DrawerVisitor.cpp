@@ -14,23 +14,24 @@ DrawerVisitor::~DrawerVisitor()
 void DrawerVisitor::visit(Button* button) {
 	std::cout << "DrawerVisitor::visit(Button* button)" << std::endl;
 
+	glUseProgram(Program);
+
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	vertex rect[6] = {
-			{ 1.0f, -1.0f },
-			{ 1.0f, 1.0f },
-			{ -1.0f, -1.0f },
-			{ 1.0f, 1.0f },
-			{ -1.0f, 1.0f },
-			{ -1.0f, -1.0f }
+			{ 0.5f, -0.5f },
+			{ 0.5f, 0.5f },
+			{ -0.5f, -0.5f },
+			{ 0.5f, 0.5f },
+			{ -0.5f, 0.5f },
+			{ -0.5f, -0.5f }
 	};
 	float green[4] = { 0.5f, 1.0f, 0.0f, 0.5f };
 	glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
 
-	glUseProgram(Program);
 	glUniform4fv(Unif_color, 1, green);
 	checkOpenGLerror();
 	glEnableVertexAttribArray(Attrib_vertex);
@@ -59,9 +60,9 @@ void DrawerVisitor::visit(Triangle* triangle) {
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	vertex trian[3] = {
-			{ -1.0f, -1.0f },
-			{ 0.0f, 1.0f },
-			{ 1.0f, -1.0f }
+			{ -0.7f, -0.7f },
+			{ 0.0f, 0.7f },
+			{ 0.7f, -0.7f }
 	};
 	float red[4] = { 0.5f, 0.0f, 1.0f, 0.5f };
 	glBufferData(GL_ARRAY_BUFFER, sizeof(trian), trian, GL_STATIC_DRAW);
@@ -96,7 +97,7 @@ void DrawerVisitor::initShader()
 	const char* vsSource =
 		"attribute vec2 coord;\n"
 		"void main() {\n"
-		"  gl_Position = vec4(coord, 0.0, 1.0);\n"
+		"  gl_Position = gl_ModelViewProjectionMatrix*vec4(coord, 0.0, 1.0);\n"
 		"}\n";
 	const char* fsSource =
 		"uniform vec4 color;\n"
