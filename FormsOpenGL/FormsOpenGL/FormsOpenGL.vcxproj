@@ -48,7 +48,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libs\glut32.lib;libs\glew32.lib;libs\glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libs\freeglut.lib;libs\glew32.lib;libs\glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -68,6 +68,7 @@
   <ItemGroup>
     <ClCompile Include="DrawerVisitor.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="MVPMatrix.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Parser.cpp" />
@@ -84,6 +85,7 @@
   <ItemGroup>
     <ClInclude Include="DrawerVisitor.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="MVPMatrix.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Button.h" />

@@ -44,18 +44,19 @@ int main(int argc, char **argv) {
 	//Init OpenGL
 	initOpenGL(argc, argv);
 
+	//Init render
+	Render render;
+	render.setViewList(viewList);
+	glutDisplayFunc(Render::renderWrapper);
+
 	//Init controller
 	Controller controller;
 	controller.setViewList(viewList);
 	glutReshapeFunc(Controller::resizeWindow);
 	glutMouseFunc(Controller::mouseAction);
 	glutSpecialFunc(Controller::keyboardSpecialAction);
+	glutMouseWheelFunc(Controller::mouseScroll);
 	glutKeyboardFunc(Controller::keyboardPressedAction);
-
-	//Init render
-	Render render;
-	render.setViewList(viewList);
-	glutDisplayFunc(Render::renderWrapper);
 
 	glutMainLoop();
 	system("pause");

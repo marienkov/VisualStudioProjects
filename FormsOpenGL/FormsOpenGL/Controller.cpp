@@ -28,26 +28,31 @@ void Controller::keyboardSpecialAction(int key, int x, int y) {
 	switch (key)
 	{
 	case GLUT_KEY_UP:
-		glMatrixMode(GL_MODELVIEW);
-		glTranslatef(0, cameraPositionY, 0);
+		DrawerVisitor::moveY(0.2);
 		break;
 	case GLUT_KEY_DOWN:
-		glMatrixMode(GL_MODELVIEW);
-		glTranslatef(0, -cameraPositionY, 0);
+		DrawerVisitor::moveY(-0.2);
 		break;
 	case GLUT_KEY_RIGHT:
-		glMatrixMode(GL_MODELVIEW);
-		glRotatef(cameraRotateY, 0.0, 1.0, 0.0);
+		DrawerVisitor::moveX(0.2);
 		break;
 	case GLUT_KEY_LEFT:
-		glMatrixMode(GL_MODELVIEW);
-		glRotatef(-cameraRotateY, 0.0, 1.0, 0.0);
+		DrawerVisitor::moveX(-0.2);
 		break;
 	default:
 		break;
 	}
 	
 	glutPostRedisplay();
+}
+
+void Controller::mouseScroll(int button, int dir, int x, int y) {
+	std::cout << "mouseScroll dir =  " << dir << std::endl;
+	if (dir > 0) { //zoom in
+		DrawerVisitor::scale(1.3);
+	} else { //zoom out
+		DrawerVisitor::scale(0.7);
+	}
 }
 
 void Controller::keyboardPressedAction(unsigned char key, int x, int y) {

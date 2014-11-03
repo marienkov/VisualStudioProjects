@@ -10,10 +10,6 @@ Render::Render() {
 Render::~Render() {
 }
 
-void Render::setInstance() {
-	instance = this;
-}
-
 void Render::setViewList(std::shared_ptr<std::list<std::shared_ptr<View>>>& list) {
 	viewList = list;
 }

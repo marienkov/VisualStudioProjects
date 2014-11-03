@@ -1,8 +1,12 @@
 #include "DrawerVisitor.h"
 
+DrawerVisitor* DrawerVisitor::instance = nullptr;
+
 DrawerVisitor::DrawerVisitor() : Attrib_vertex(0), Unif_color(0), Program(0)
 {
 	initShader();
+	MVP.makeIdentityMatrix();
+	instance = this;
 }
 
 
@@ -15,15 +19,14 @@ void DrawerVisitor::visit(Button* button) {
 	std::cout << "DrawerVisitor::visit(Button* button)" << std::endl;
 
 	glUseProgram(Program);
-
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-	float green[4] = { 0.5f, 1.0f, 0.0f, 0.5f };
 	glBufferData(GL_ARRAY_BUFFER, button->getVertexDataArraySize(), button->getVertexDataArray(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
+	glUniformMatrix4fv(Unif_MVP, 1, GL_FALSE, MVP.getCurrentMVP());
 
 	glUniform4fv(Unif_color, 1, button->getVertexColorArray());
 	checkOpenGLerror();
@@ -52,7 +55,6 @@ void DrawerVisitor::visit(Triangle* triangle) {
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	float red[4] = { 0.5f, 0.0f, 1.0f, 0.5f };
 	glBufferData(GL_ARRAY_BUFFER, triangle->getVertexDataArraySize(), triangle->getVertexDataArray(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
@@ -84,8 +86,9 @@ void DrawerVisitor::initShader()
 	std::cout << "initShader()" << std::endl;
 	const char* vsSource =
 		"attribute vec3 coord;\n"
+		"uniform mat4 MVP;\n"
 		"void main() {\n"
-		"  gl_Position = gl_ModelViewProjectionMatrix*vec4(coord, 1.0);\n"
+		"  gl_Position = MVP*vec4(coord, 1.0);\n"
 		"}\n";
 	const char* fsSource =
 		"uniform vec4 color;\n"
@@ -130,6 +133,13 @@ void DrawerVisitor::initShader()
 		std::cout << "could not bind uniform " << unif_name << std::endl;
 		return;
 	}
+	//! Get ID of MVP from already built program
+	const char* MVP_name = "MVP";
+	Unif_MVP = glGetUniformLocation(Program, MVP_name);
+	if (Unif_MVP == -1) {
+		std::cout << "could not bind uniform " << unif_name << std::endl;
+		return;
+	}
 
 	checkOpenGLerror();
 }
@@ -170,4 +180,17 @@ void DrawerVisitor::freeVBO()
 {
 	std::cout << "freeVBO()" << std::endl;
 	//glDeleteBuffers(1, &VBO);
+}
+
+void DrawerVisitor::moveX(float dx) {
+	instance->MVP.translateMVP({dx,0,0,0});
+	//glutPostRedisplay();
+}
+void DrawerVisitor::moveY(float dy) {
+	instance->MVP.translateMVP({ 0, dy, 0, 0 });
+	//glutPostRedisplay();
+}
+void DrawerVisitor::scale(float s) {
+	instance->MVP.scaleMVP({ 1, 1, s, 1 });
+	glutPostRedisplay();
 }

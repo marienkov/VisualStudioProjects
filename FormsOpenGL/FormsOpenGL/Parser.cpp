@@ -44,11 +44,11 @@ std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char* file
 
 std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string currentLine, int current) {
 	unsigned char validation = 0;
-	unsigned char validationSuccess = 511;
+	unsigned char validationSuccess = 1023;
 	
 	std::shared_ptr<Button> rect = std::shared_ptr<Button>(new Button());
 	std::string id;
-	float cAlpha, cRed, cGreen, cBlue, x0, y0, width, height;
+	float cAlpha, cRed, cGreen, cBlue, x0, y0, z0, width, height;
 	
 	do {
 		std::string var;
@@ -83,13 +83,14 @@ std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string curre
 					if (var == "id") { id = value; validation |= 1; }
 					else if (var == "x0"){ x0 = std::stof(value); validation |= 2; }
 					else if (var == "y0"){ y0 = std::stof(value); validation |= 4; }
-					else if (var == "width") { width = std::stof(value); validation |= 8; }
-					else if (var == "height") { height = std::stof(value); validation |= 16; }
+					else if (var == "z0"){ z0 = std::stof(value); validation |= 8; }
+					else if (var == "width") { width = std::stof(value); validation |= 16; }
+					else if (var == "height") { height = std::stof(value); validation |= 32; }
 
-					else if (var == "cAlpha") { cAlpha = std::stof(value);  validation |= 32; }
-					else if (var == "cRed") { cRed = std::stof(value);  validation |= 64; }
-					else if (var == "cGreen") { cGreen = std::stof(value);  validation |= 128; }
-					else if (var == "cBlue") { cBlue = std::stof(value);  validation |= 256; }
+					else if (var == "cAlpha") { cAlpha = std::stof(value);  validation |= 64; }
+					else if (var == "cRed") { cRed = std::stof(value);  validation |= 128; }
+					else if (var == "cGreen") { cGreen = std::stof(value);  validation |= 256; }
+					else if (var == "cBlue") { cBlue = std::stof(value);  validation |= 512; }
 					log("value = " + value);
 					start = -1;
 					end = -1;
@@ -104,8 +105,8 @@ std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string curre
 				}
 				log("Valid Button");
 				rect->setId(id);
-				rect->setAllVer(View::VertexCoord(x0, y0, 0), View::VertexCoord(x0, y0 - height, 0),
-					View::VertexCoord(x0 + width, y0 - height, 0), View::VertexCoord(x0 + width, y0, 0));
+				rect->setAllVer(View::VertexCoord(x0, y0, z0), View::VertexCoord(x0, y0 - height, z0),
+					View::VertexCoord(x0 + width, y0 - height, z0), View::VertexCoord(x0 + width, y0, z0));
 				rect->setColor(cAlpha, cRed, cGreen, cBlue);
 				return rect;
 			}
@@ -124,11 +125,11 @@ std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string curre
 //NOT USING ANYWHERE
 std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string currentLine, int current) {
 	unsigned char validation = 0;
-	unsigned char validationSuccess = 511;
+	unsigned char validationSuccess = 16383;
 
 	std::shared_ptr<Triangle> trian = std::shared_ptr<Triangle>(new Triangle());
 	std::string id;
-	float cAlpha, cRed, cGreen, cBlue, x0, y0, x1, y1, x2, y2;
+	float cAlpha, cRed, cGreen, cBlue, x0, y0, z0, x1, y1, z1, x2, y2, z2;
 
 	do {
 		std::string var;
@@ -163,15 +164,18 @@ std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string cur
 					if (var == "id") { id = value; validation |= 1; }
 					else if (var == "x0"){ x0 = std::stof(value); validation |= 2; }
 					else if (var == "y0"){ y0 = std::stof(value); validation |= 4; }
-					else if (var == "x1") { x1 = std::stof(value); validation |= 8; }
-					else if (var == "y1") { y1 = std::stof(value); validation |= 16; }
-					else if (var == "x2") { x2 = std::stof(value); validation |= 8; }
-					else if (var == "y2") { y2 = std::stof(value); validation |= 16; }
+					else if (var == "z0"){ z0 = std::stof(value); validation |= 8; }
+					else if (var == "x1") { x1 = std::stof(value); validation |= 16; }
+					else if (var == "y1") { y1 = std::stof(value); validation |= 32; }
+					else if (var == "z1") { z1 = std::stof(value); validation |= 64; }
+					else if (var == "x2") { x2 = std::stof(value); validation |= 128; }
+					else if (var == "y2") { y2 = std::stof(value); validation |= 256; }
+					else if (var == "z2") { z2 = std::stof(value); validation |= 512; }
 
-					else if (var == "cAlpha") { cAlpha = std::stof(value);  validation |= 32; }
-					else if (var == "cRed") { cRed = std::stof(value);  validation |= 64; }
-					else if (var == "cGreen") { cGreen = std::stof(value);  validation |= 128; }
-					else if (var == "cBlue") { cBlue = std::stof(value);  validation |= 256; }
+					else if (var == "cAlpha") { cAlpha = std::stof(value);  validation |= 1024; }
+					else if (var == "cRed") { cRed = std::stof(value);  validation |= 2048; }
+					else if (var == "cGreen") { cGreen = std::stof(value);  validation |= 4096; }
+					else if (var == "cBlue") { cBlue = std::stof(value);  validation |= 8192; }
 					log("value = " + value);
 					start = -1;
 					end = -1;
@@ -187,8 +191,8 @@ std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string cur
 				log("Valid Triangle");
 				trian->setId(id);
 				trian->setColor(cAlpha, cRed, cGreen, cBlue);
-				trian->setAllVer(View::VertexCoord(x0, y0, 0), View::VertexCoord(x1, y1, 0),
-					View::VertexCoord(x2, y2, 0));
+				trian->setAllVer(View::VertexCoord(x0, y0, z0), View::VertexCoord(x1, y1, z1),
+					View::VertexCoord(x2, y2, z2));
 				return trian;
 			}
 			if (start == -1)
