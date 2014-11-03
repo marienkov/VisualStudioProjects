@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-class Button;
-class Triangle;
+#include "Button.h"
+#include "Triangle.h"
 
 class Visitor
 {

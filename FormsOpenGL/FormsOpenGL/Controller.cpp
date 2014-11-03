@@ -4,8 +4,8 @@ float Controller::cameraPositionX = 0.1f;
 float Controller::cameraPositionY = 0.1f;
 float Controller::cameraPositionZ = 0.1f;
 
-float Controller::cameraRotateY = 1;
-float Controller::cameraRotateX = 1;
+float Controller::cameraRotateY = 2;
+float Controller::cameraRotateX = 2;
 
 Controller::Controller()
 {

@@ -1,16 +1,25 @@
 <Form>
 
-  <Button>    id  =  "rect2"    x0  =  "0"    y0="0"    width="1"    height="1"    color="146"  </Button>
+  <Button>
+    id  =  "rect2"    x0  =  "-0.5"    y0="0.5"    width="1"    height="1"
+    cAlpha="0.5"
+    cRed="0.1"
+    cGreen="0"
+    cBlue="0.2"
+  </Button>
 
   <Triangle>
     id  =  "trian1"
-    x0  =  "0"
-    y0="0"
+    x0  =  "-0.7"
+    y0="-0.7"
     x1  =  "1"
-    y1="0"
-    x2  =  "1"
-    y2="1"
-    color="1446"  
+    y1="-0.7"
+    x2  =  "0"
+    y2="0.7"
+    cAlpha="0.5"
+    cRed="1"
+    cGreen="0"
+    cBlue="0.2"
   </Triangle>
 
 </Form>

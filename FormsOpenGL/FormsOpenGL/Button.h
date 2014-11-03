@@ -5,7 +5,7 @@ class Button :
 	public View
 {
 private:
-	VertexCoord v1, v2, v3, v4;
+	VertexCoord vertexData[6];
 public:
 	Button();
 	Button(std::string name, int, VertexCoord ver1, VertexCoord ver2, VertexCoord ver3, VertexCoord ver4);
@@ -16,6 +16,9 @@ public:
 	void setVer2(VertexCoord);
 	void setVer3(VertexCoord);
 	void setVer4(VertexCoord);
+
+	float* getVertexDataArray();
+	int getVertexDataArraySize();
 
 	void accept(Visitor&);
 };

@@ -19,26 +19,19 @@ void DrawerVisitor::visit(Button* button) {
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	vertex rect[6] = {
-			{ 0.5f, -0.5f },
-			{ 0.5f, 0.5f },
-			{ -0.5f, -0.5f },
-			{ 0.5f, 0.5f },
-			{ -0.5f, 0.5f },
-			{ -0.5f, -0.5f }
-	};
+
 	float green[4] = { 0.5f, 1.0f, 0.0f, 0.5f };
-	glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, button->getVertexDataArraySize(), button->getVertexDataArray(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
 
-	glUniform4fv(Unif_color, 1, green);
+	glUniform4fv(Unif_color, 1, button->getVertexColorArray());
 	checkOpenGLerror();
 	glEnableVertexAttribArray(Attrib_vertex);
 	checkOpenGLerror();
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	checkOpenGLerror();
-	glVertexAttribPointer(Attrib_vertex, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	checkOpenGLerror();
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	checkOpenGLerror();
@@ -59,24 +52,19 @@ void DrawerVisitor::visit(Triangle* triangle) {
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	vertex trian[3] = {
-			{ -0.7f, -0.7f },
-			{ 0.0f, 0.7f },
-			{ 0.7f, -0.7f }
-	};
 	float red[4] = { 0.5f, 0.0f, 1.0f, 0.5f };
-	glBufferData(GL_ARRAY_BUFFER, sizeof(trian), trian, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, triangle->getVertexDataArraySize(), triangle->getVertexDataArray(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
 
 	glUseProgram(Program);
-	glUniform4fv(Unif_color, 1, red);
+	glUniform4fv(Unif_color, 1, triangle->getVertexColorArray());
 	checkOpenGLerror();
 	glEnableVertexAttribArray(Attrib_vertex);
 	checkOpenGLerror();
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	checkOpenGLerror();
-	glVertexAttribPointer(Attrib_vertex, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	checkOpenGLerror();
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	checkOpenGLerror();
@@ -95,9 +83,9 @@ void DrawerVisitor::initShader()
 {
 	std::cout << "initShader()" << std::endl;
 	const char* vsSource =
-		"attribute vec2 coord;\n"
+		"attribute vec3 coord;\n"
 		"void main() {\n"
-		"  gl_Position = gl_ModelViewProjectionMatrix*vec4(coord, 0.0, 1.0);\n"
+		"  gl_Position = gl_ModelViewProjectionMatrix*vec4(coord, 1.0);\n"
 		"}\n";
 	const char* fsSource =
 		"uniform vec4 color;\n"
