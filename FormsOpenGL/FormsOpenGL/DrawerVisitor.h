@@ -2,7 +2,7 @@
 #include "Visitor.h"
 #include "gl\glew.h"
 #include "gl\freeglut.h"
-#include "MVPMatrix.h"
+#include "MVPMatrix4.h"
 
 class DrawerVisitor :
 	public Visitor
@@ -15,7 +15,7 @@ private:
 	GLfloat DrawerVisitor::Unif_MVP;
 	GLuint DrawerVisitor::Program;
 
-	MVPMatrix MVP;
+	MVPMatrix4 MVP;
 public:
 	DrawerVisitor();
 	virtual ~DrawerVisitor();
@@ -32,6 +32,9 @@ public:
 	static void moveX(float dx);
 	static void moveY(float dy);
 	static void scale(float s);
+
+	static void rotateX(float angle);
+	static void rotateY(float angle);
 };
 
 struct vertex {

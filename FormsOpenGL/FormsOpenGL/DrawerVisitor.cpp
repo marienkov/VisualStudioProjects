@@ -5,7 +5,6 @@ DrawerVisitor* DrawerVisitor::instance = nullptr;
 DrawerVisitor::DrawerVisitor() : Attrib_vertex(0), Unif_color(0), Program(0)
 {
 	initShader();
-	MVP.makeIdentityMatrix();
 	instance = this;
 }
 
@@ -26,7 +25,7 @@ void DrawerVisitor::visit(Button* button) {
 	glBufferData(GL_ARRAY_BUFFER, button->getVertexDataArraySize(), button->getVertexDataArray(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
-	glUniformMatrix4fv(Unif_MVP, 1, GL_FALSE, MVP.getCurrentMVP());
+	glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getCurrentMVP4());
 
 	glUniform4fv(Unif_color, 1, button->getVertexColorArray());
 	checkOpenGLerror();
@@ -64,7 +63,7 @@ void DrawerVisitor::visit(Triangle* triangle) {
 	checkOpenGLerror();
 	glEnableVertexAttribArray(Attrib_vertex);
 	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO); //free buffer
 	checkOpenGLerror();
 	glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	checkOpenGLerror();
@@ -183,14 +182,16 @@ void DrawerVisitor::freeVBO()
 }
 
 void DrawerVisitor::moveX(float dx) {
-	instance->MVP.translateMVP({dx,0,0,0});
+	instance->MVP.translateModel4({ dx, 0, 0, 0});
 	//glutPostRedisplay();
 }
+
 void DrawerVisitor::moveY(float dy) {
-	instance->MVP.translateMVP({ 0, dy, 0, 0 });
+	instance->MVP.translateModel4({ 0, dy, 0, 0 });
 	//glutPostRedisplay();
 }
+
 void DrawerVisitor::scale(float s) {
-	instance->MVP.scaleMVP({ 1, 1, s, 1 });
+	instance->MVP.scaleModel4({ s, s, s, 1 });
 	glutPostRedisplay();
 }

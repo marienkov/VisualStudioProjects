@@ -15,7 +15,7 @@ char* fileName = "Form.xml";
 int initOpenGL(int argc1, char **argv1) {
 	glutInit(&argc1, argv1);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
-	glutInitWindowPosition(400, 300);
+	glutInitWindowPosition(800, 500);
 	glutInitWindowSize(400, 400);
 	glutCreateWindow("FormsOpenGL");
 
@@ -54,6 +54,7 @@ int main(int argc, char **argv) {
 	controller.setViewList(viewList);
 	glutReshapeFunc(Controller::resizeWindow);
 	glutMouseFunc(Controller::mouseAction);
+	glutMotionFunc(Controller::mouseMove);
 	glutSpecialFunc(Controller::keyboardSpecialAction);
 	glutMouseWheelFunc(Controller::mouseScroll);
 	glutKeyboardFunc(Controller::keyboardPressedAction);

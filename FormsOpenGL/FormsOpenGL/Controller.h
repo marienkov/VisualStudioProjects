@@ -18,6 +18,8 @@ private:
 
 	static float cameraRotateY;
 	static float cameraRotateX;
+
+	static bool mouseButtonPressed;
 public:
 	Controller();
 	virtual ~Controller();
@@ -26,6 +28,7 @@ public:
 
 	static void mouseAction(int,int,int,int);
 	static void mouseScroll(int, int, int, int);
+	static void mouseMove(int, int);
 	static void keyboardPressedAction(unsigned char key, int x, int y);
 	static void keyboardSpecialAction(int, int, int);
 	static void resizeWindow(int width, int height);

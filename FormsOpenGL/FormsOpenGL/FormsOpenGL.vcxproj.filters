@@ -42,7 +42,7 @@
     <ClCompile Include="Render.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="MVPMatrix.cpp">
+    <ClCompile Include="MVPMatrix4.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
@@ -76,7 +76,7 @@
     <ClInclude Include="Render.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="MVPMatrix.h">
+    <ClInclude Include="MVPMatrix4.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

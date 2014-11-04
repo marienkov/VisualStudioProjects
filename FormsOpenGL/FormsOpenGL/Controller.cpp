@@ -7,6 +7,8 @@ float Controller::cameraPositionZ = 0.1f;
 float Controller::cameraRotateY = 2;
 float Controller::cameraRotateX = 2;
 
+bool Controller::mouseButtonPressed = false;
+
 Controller::Controller()
 {
 }
@@ -20,7 +22,20 @@ void Controller::setViewList(std::shared_ptr<std::list<std::shared_ptr<View>>> l
 }
 
 void Controller::mouseAction(int the_button, int button_state, int x, int y) {
-	std::cout << "X: " << x << "   Y: " << y << std::endl;
+	if (the_button == GLUT_LEFT_BUTTON) {
+		if (button_state == GLUT_UP)
+			mouseButtonPressed = false;
+		else
+			mouseButtonPressed = true;
+	}
+	//std::cout << "X: " << x << "   Y: " << y << std::endl;
+}
+
+void Controller::mouseMove(int x, int y) {
+	if (mouseButtonPressed) {
+		std::cout << "MOVE at X: " << x << "   Y: " << y << std::endl;
+		float angleX = 1;
+	}
 }
 
 void Controller::keyboardSpecialAction(int key, int x, int y) {
