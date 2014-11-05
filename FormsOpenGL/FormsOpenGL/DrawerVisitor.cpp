@@ -25,7 +25,7 @@ void DrawerVisitor::visit(Button* button) {
 	glBufferData(GL_ARRAY_BUFFER, button->getVertexDataArraySize(), button->getVertexDataArray(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
 	checkOpenGLerror();
-	glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getCurrentMVP4());
+	glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
 
 	glUniform4fv(Unif_color, 1, button->getVertexColorArray());
 	checkOpenGLerror();
@@ -182,16 +182,38 @@ void DrawerVisitor::freeVBO()
 }
 
 void DrawerVisitor::moveX(float dx) {
-	instance->MVP.translateModel4({ dx, 0, 0, 0});
+	Matrix<float> transf = Matrix<float>(
+		new float[16]{ 1, 0, 0, dx,
+					   0, 1, 0, 0,
+		   			   0, 0, 1, 0,
+					   0, 0, 0, 1, }, 4, 4);
+	instance->MVP.getModelTransfer4()->multiply(&transf);
+	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
 	//glutPostRedisplay();
 }
 
 void DrawerVisitor::moveY(float dy) {
-	instance->MVP.translateModel4({ 0, dy, 0, 0 });
+	Matrix<float> transf = Matrix<float>(
+		new float[16]{ 1, 0, 0, 0,
+					   0, 1, 0, dy,
+					   0, 0, 1, 0,
+					   0, 0, 0, 1, }, 4, 4);
+	instance->MVP.getModelTransfer4()->multiply(&transf);
+	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
 	//glutPostRedisplay();
 }
 
 void DrawerVisitor::scale(float s) {
-	instance->MVP.scaleModel4({ s, s, s, 1 });
+	Matrix<float> scale = Matrix<float>(
+		new float[16]{ s, 0, 0, 0,
+					 0, s, 0, 0,
+					 0, 0, s, 0, 
+					 0, 0, 0, 1, },	4, 4);
+	instance->MVP.getModelScaling4()->multiply(&scale);
+	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
 	glutPostRedisplay();
+}
+
+void DrawerVisitor::rotate(float angleX, float angleY) {
+	//instance->MVP.rotateModel4(angleX, angleY);
 }

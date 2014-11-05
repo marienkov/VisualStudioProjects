@@ -34,7 +34,7 @@ void Controller::mouseAction(int the_button, int button_state, int x, int y) {
 void Controller::mouseMove(int x, int y) {
 	if (mouseButtonPressed) {
 		std::cout << "MOVE at X: " << x << "   Y: " << y << std::endl;
-		float angleX = 1;
+		
 	}
 }
 

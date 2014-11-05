@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClInclude Include="DrawerVisitor.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="MVPMatrix4.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Parser.h" />

@@ -33,8 +33,7 @@ public:
 	static void moveY(float dy);
 	static void scale(float s);
 
-	static void rotateX(float angle);
-	static void rotateY(float angle);
+	static void rotate(float angleX, float angleY);
 };
 
 struct vertex {

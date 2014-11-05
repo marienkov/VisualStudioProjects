@@ -7,6 +7,7 @@
 #include "Button.h"
 #include "Render.h"
 #include "Controller.h"
+#include "Matrix.h" //todo: delete after test
 
 using namespace std;
 
@@ -36,7 +37,31 @@ int initOpenGL(int argc1, char **argv1) {
 	glClearColor(1, 0, 0, 0);
 }
 
+class B{
+public:
+		B() { std::cout << "B()" << std::endl; };
+	~B() {
+		std::cout << "~B()" << std::endl;
+	}
+};
+
+class A{
+public:
+	std::shared_ptr < B > sss;
+	A() : sss(new B){ 
+		std::cout << "A()" << std::endl; };
+	~A() {
+		std::cout << "~A()" << std::endl;
+	}
+};
+
 int main(int argc, char **argv) {
+	//todo: Delete after test
+	Matrix<float> matrixTest(4,4);
+	matrixTest.loadIdentityMatrix();
+	std::shared_ptr<A> bbb(new A());
+	bbb.reset();
+
 	//Parse xml for Views (Model)
 	Parser parser;
 	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList = parser.parse(fileName);
