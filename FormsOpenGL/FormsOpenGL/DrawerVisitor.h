@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 #include "Visitor.h"
 #include "gl\glew.h"
 #include "gl\freeglut.h"
@@ -14,6 +15,12 @@ private:
 	GLint DrawerVisitor::Unif_color;
 	GLfloat DrawerVisitor::Unif_MVP;
 	GLuint DrawerVisitor::Program;
+
+	float angleX;
+	float angleY;
+	float angleZ;
+
+	float scaleFactor;
 
 	MVPMatrix4 MVP;
 public:
@@ -33,7 +40,7 @@ public:
 	static void moveY(float dy);
 	static void scale(float s);
 
-	static void rotate(float angleX, float angleY);
+	static void rotateCamera(float dAngleX, float dAngleY, float dAngleZ);
 };
 
 struct vertex {

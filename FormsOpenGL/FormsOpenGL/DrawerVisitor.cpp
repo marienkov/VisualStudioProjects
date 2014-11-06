@@ -2,7 +2,7 @@
 
 DrawerVisitor* DrawerVisitor::instance = nullptr;
 
-DrawerVisitor::DrawerVisitor() : Attrib_vertex(0), Unif_color(0), Program(0)
+DrawerVisitor::DrawerVisitor() : Attrib_vertex(0), Unif_color(0), Program(0), scaleFactor(1), angleX(0), angleY(0), angleZ(0)
 {
 	initShader();
 	instance = this;
@@ -41,6 +41,8 @@ void DrawerVisitor::visit(Button* button) {
 	checkOpenGLerror();
 	glDisableVertexAttribArray(Attrib_vertex);
 	checkOpenGLerror();
+	glDeleteBuffers(1, &VBO);
+	checkOpenGLerror();
 	glUseProgram(0);
 
 	checkOpenGLerror();
@@ -72,6 +74,8 @@ void DrawerVisitor::visit(Triangle* triangle) {
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	checkOpenGLerror();
 	glDisableVertexAttribArray(Attrib_vertex);
+	checkOpenGLerror();
+	glDeleteBuffers(1, &VBO);
 	checkOpenGLerror();
 	glUseProgram(0);
 
@@ -204,16 +208,46 @@ void DrawerVisitor::moveY(float dy) {
 }
 
 void DrawerVisitor::scale(float s) {
-	Matrix<float> scale = Matrix<float>(
-		new float[16]{ s, 0, 0, 0,
-					   0, s, 0, 0,
-					   0, 0, s, 0, 
-					   0, 0, 0, 1, },	4, 4);
-	instance->MVP.getModelScaling4()->multiply(&scale);
+	instance->scaleFactor *= s;
+	float *scale = new float[16]{
+		instance->scaleFactor, 0, 0, 0,
+		0, instance->scaleFactor, 0, 0,
+		0, 0, instance->scaleFactor, 0, 
+		0, 0, 0, 1, };
+	instance->MVP.getModelScaling4()->reset(scale, 4, 4);
 	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
 	glutPostRedisplay();
 }
 
-void DrawerVisitor::rotate(float angleX, float angleY) {
+void DrawerVisitor::rotateCamera(float dAngleX, float dAngleY, float dAngleZ) {
+	/*dAngleX = 0;
+	dAngleY = 0;
+	dAngleZ = 0;*/
+
+	instance->angleX += dAngleX;
+	instance->angleY += dAngleY;
+	instance->angleZ += dAngleZ;
+
+	Matrix<float> rotateX = Matrix<float>(
+		new float[16]{
+		1, 0,					   0,                     0,
+		0, cos(instance->angleX), -sin(instance->angleX), 0,
+		0, sin(instance->angleX),  cos(instance->angleX), 0,
+		0, 0,					   0,                     1 },4, 4);
+	Matrix<float> rotateY = Matrix<float>(
+		new float[16]{
+		cos(instance->angleY), 0, sin(instance->angleY), 0,
+		0,					   1, 0,			         0,
+		-sin(instance->angleY),0, cos(instance->angleY), 0,
+		0,					   0, 0,					 1 }, 4, 4);
+	Matrix<float> rotateZ = Matrix<float>(
+		new float[16]{
+		cos(instance->angleZ), -sin(instance->angleZ), 0, 0,
+		sin(instance->angleZ), cos(instance->angleZ),  0, 0,
+		0,					   0,				       1, 0,
+		0,					   0,                      0, 1 }, 4, 4);
+		instance->MVP.getModelRotating4()->loadIdentityMatrix();
+		instance->MVP.getModelRotating4()->multiply(rotateX)->multiply(rotateY)->multiply(rotateZ);
+		//instance->MVP.getModelScaling4()->multiply(&scale);
 	//instance->MVP.rotateModel4(angleX, angleY);
 }

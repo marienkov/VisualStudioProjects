@@ -4,10 +4,16 @@ float Controller::cameraPositionX = 0.1f;
 float Controller::cameraPositionY = 0.1f;
 float Controller::cameraPositionZ = 0.1f;
 
-float Controller::cameraRotateY = 2;
-float Controller::cameraRotateX = 2;
+float Controller::cameraRotateY = 0.005f;
+float Controller::cameraRotateX = 0.005f;
+float Controller::cameraRotateZ = 0;
 
-bool Controller::mouseButtonPressed = false;
+int Controller::mouseXstart = 0;
+int Controller::mouseYstart = 0;
+int Controller::mouseXend = 0;
+int Controller::mouseYend = 0;
+
+bool Controller::mouseLeftButtonPressed = false;
 
 Controller::Controller()
 {
@@ -22,20 +28,24 @@ void Controller::setViewList(std::shared_ptr<std::list<std::shared_ptr<View>>> l
 }
 
 void Controller::mouseAction(int the_button, int button_state, int x, int y) {
-	if (the_button == GLUT_LEFT_BUTTON) {
-		if (button_state == GLUT_UP)
-			mouseButtonPressed = false;
-		else
-			mouseButtonPressed = true;
+	if (the_button == GLUT_LEFT_BUTTON && !button_state == GLUT_UP) {
+		mouseLeftButtonPressed = true;
 	}
-	//std::cout << "X: " << x << "   Y: " << y << std::endl;
+	else
+		mouseLeftButtonPressed = false;
 }
 
 void Controller::mouseMove(int x, int y) {
-	if (mouseButtonPressed) {
-		std::cout << "MOVE at X: " << x << "   Y: " << y << std::endl;
-		
+	if (mouseLeftButtonPressed) {
+		mouseXstart = x;
+		mouseYstart = y;
+		mouseLeftButtonPressed = false;
+		return;
 	}
+	DrawerVisitor::rotateCamera(cameraRotateY * (y - mouseYstart), cameraRotateX * (x - mouseXstart), 0);
+	glutPostRedisplay();
+	mouseYstart = y;
+	mouseXstart = x;
 }
 
 void Controller::keyboardSpecialAction(int key, int x, int y) {
@@ -64,9 +74,9 @@ void Controller::keyboardSpecialAction(int key, int x, int y) {
 void Controller::mouseScroll(int button, int dir, int x, int y) {
 	std::cout << "mouseScroll dir =  " << dir << std::endl;
 	if (dir > 0) { //zoom in
-		DrawerVisitor::scale(1.3);
+		DrawerVisitor::scale(1.1);
 	} else { //zoom out
-		DrawerVisitor::scale(0.7);
+		DrawerVisitor::scale(0.9);
 	}
 }
 

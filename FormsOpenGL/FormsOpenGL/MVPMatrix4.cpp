@@ -22,15 +22,15 @@ MVPMatrix4::MVPMatrix4() : changed(true)
 }
 MVPMatrix4::~MVPMatrix4()
 {
-	delete[] modelTransfer4;
-	delete[] modelScaling4;
-	delete[] modelRotating4;
-	delete[] modelTransform4;
+	delete modelTransfer4;
+	delete modelScaling4;
+	delete modelRotating4;
+	delete modelTransform4;
 
-	delete[] viewTransform4;
-	delete[] projectionTransform4;
+	delete viewTransform4;
+	delete projectionTransform4;
 
-	delete[] MVP4;
+	delete MVP4;
 }
 
 Matrix<float>* MVPMatrix4::getModelRotating4(){

@@ -18,8 +18,13 @@ private:
 
 	static float cameraRotateY;
 	static float cameraRotateX;
+	static float cameraRotateZ;
 
-	static bool mouseButtonPressed;
+	static bool mouseLeftButtonPressed;
+	static int mouseXstart;
+	static int mouseYstart;
+	static int mouseXend;
+	static int mouseYend;
 public:
 	Controller();
 	virtual ~Controller();
