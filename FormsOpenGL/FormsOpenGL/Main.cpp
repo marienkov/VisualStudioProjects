@@ -61,6 +61,10 @@ int main(int argc, char **argv) {
 	matrixTest.loadIdentityMatrix();
 	std::shared_ptr<A> bbb(new A());
 	bbb.reset();
+	Matrix<int> m1 = Matrix<int>(new int[9]{1, 2, 3, 2, 2, 2, 3, 2, 1}, 3, 3);
+	Matrix<int> m2 = Matrix<int>(new int[9]{3, 2, 1, 3, 3, 3, 1, 2, 1}, 3, 3);
+	Matrix<int>* m3 = m1 * (m2);
+	//
 
 	//Parse xml for Views (Model)
 	Parser parser;

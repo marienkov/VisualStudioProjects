@@ -206,9 +206,9 @@ void DrawerVisitor::moveY(float dy) {
 void DrawerVisitor::scale(float s) {
 	Matrix<float> scale = Matrix<float>(
 		new float[16]{ s, 0, 0, 0,
-					 0, s, 0, 0,
-					 0, 0, s, 0, 
-					 0, 0, 0, 1, },	4, 4);
+					   0, s, 0, 0,
+					   0, 0, s, 0, 
+					   0, 0, 0, 1, },	4, 4);
 	instance->MVP.getModelScaling4()->multiply(&scale);
 	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
 	glutPostRedisplay();

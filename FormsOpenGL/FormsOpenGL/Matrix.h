@@ -11,6 +11,7 @@ public:
 	void loadIdentityMatrix();
 	T* getDataPointer();
 	Matrix<T>* operator*(const Matrix<T> *matrix);
+	Matrix<T>* operator*(const Matrix<T> &matrix);
 	void multiply(const Matrix<T>* matrix);
 private:
 	int row, col, size;
@@ -52,16 +53,32 @@ T* Matrix<T>::getDataPointer() {
 template<class T>
 Matrix<T>* Matrix<T>::operator*(const Matrix<T>* matrix) {
 	int col2 = matrix->col;
+	int row2 = matrix->row;
 	T* tempMatrix = new T[row*col2];
 	for (int i = 0; i < row; ++i) {
 		for (int j = 0; j < col2; ++j) {
 			T temp = 0;
 			for (int k = 0; k < row; ++k) {
-				temp += data[i * col + k] * matrix->data[j * row + k];
+				temp += data[i * col + k] * matrix->data[k * col2 + j];
 			}
 			tempMatrix[i*col2 + j] = temp;
-			//view4[i * 4] * projection4[j] + view4[i * 4 + 1] * projection4[j + 4]
-				//+ view4[i * 4 + 2] * projection4[j + 8] + view4[i * 4 + 3] * projection4[j + 12];
+		}
+	}
+	return new Matrix<T>(tempMatrix, row, col2);
+}
+
+template<class T>
+Matrix<T>* Matrix<T>::operator*(const Matrix<T>& matrix) {
+	int col2 = matrix.col;
+	int row2 = matrix.row;
+	T* tempMatrix = new T[row*col2];
+	for (int i = 0; i < row; ++i) {
+		for (int j = 0; j < col2; ++j) {
+			T temp = 0;
+			for (int k = 0; k < row; ++k) {
+				temp += data[i * col + k] * matrix.data[k * col2 + j];
+			}
+			tempMatrix[i*col2 + j] = temp;
 		}
 	}
 	return new Matrix<T>(tempMatrix, row, col2);
@@ -75,11 +92,9 @@ void Matrix<T>::multiply(const Matrix<T>* matrix) {
 		for (int j = 0; j < col2; ++j) {
 			T temp = 0;
 			for (int k = 0; k < row; ++k) {
-				temp += data[i * col + k] * matrix->data[j * row + k];
+				temp += data[i * col + k] * matrix->data[k * col2 + j];
 			}
 			tempMatrix[i*col2 + j] = temp;
-			//view4[i * 4] * projection4[j] + view4[i * 4 + 1] * projection4[j + 4]
-			//+ view4[i * 4 + 2] * projection4[j + 8] + view4[i * 4 + 3] * projection4[j + 12];
 		}
 	}
 	delete[] data;

@@ -29,6 +29,7 @@ MVPMatrix4::~MVPMatrix4()
 
 	delete[] viewTransform4;
 	delete[] projectionTransform4;
+
 	delete[] MVP4;
 }
 
@@ -46,7 +47,8 @@ Matrix<float>* MVPMatrix4::getModelTransfer4(){
 
 Matrix<float>* MVPMatrix4::getModelTransform4(){
 	delete modelTransform4;
-	modelTransform4 = *((*modelRotating4) * (modelTransfer4)) * (modelScaling4);
+	modelTransform4 = (*modelTransfer4) * (modelRotating4);
+	modelTransform4->multiply(modelScaling4);
 	return modelTransform4;
 }
 
@@ -60,7 +62,8 @@ Matrix<float>* MVPMatrix4::getProjectionTransfor4(){
 
 Matrix<float>* MVPMatrix4::getMVPTransform4() {
 	delete MVP4;
-	MVP4 = *((*projectionTransform4) * (viewTransform4)) * (getModelTransform4());
+	MVP4 = (*projectionTransform4) * (viewTransform4);
+	MVP4->multiply(getModelTransform4());
 	return MVP4;
 }
 
