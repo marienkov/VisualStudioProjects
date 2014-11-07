@@ -17,7 +17,7 @@ int initOpenGL(int argc1, char **argv1) {
 	glutInit(&argc1, argv1);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
 	glutInitWindowPosition(800, 500);
-	glutInitWindowSize(400, 400);
+	glutInitWindowSize(600, 600);
 	glutCreateWindow("FormsOpenGL");
 
 	//! Before shader initialization
@@ -34,7 +34,7 @@ int initOpenGL(int argc1, char **argv1) {
 		return 1;
 	}
 
-	glClearColor(1, 0, 0, 0);
+	glClearColor(0, 0, 0, 1);
 }
 
 class B{

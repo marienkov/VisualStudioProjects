@@ -70,6 +70,7 @@
     <ClCompile Include="DrawerVisitor.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="MVPMatrix4.cpp" />
+    <ClCompile Include="Rectangle3D.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Parser.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MVPMatrix4.h" />
+    <ClInclude Include="Rectangle3D.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Button.h" />

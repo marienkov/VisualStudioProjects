@@ -29,6 +29,7 @@ public:
 
 	void visit(Button*);
 	void visit(Triangle*);
+	void visit(Rectangle3D*);
 
 	void initShader();
 	void checkOpenGLerror();

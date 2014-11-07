@@ -19,8 +19,10 @@ void Render::renderWrapper() {
 }
 
 void Render::render() {
+	//glutSwapBuffers();
 	glClear(GL_COLOR_BUFFER_BIT);
 	for (std::list<std::shared_ptr<View>>::iterator it = viewList->begin(); it != viewList->end(); ++it) {
 		it->get()->accept(drawerVisitor);
 	}
+	glFlush();  // Render now
 }

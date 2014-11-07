@@ -19,10 +19,10 @@ void View::setId(std::string id) {
 }
 
 void View::setColor(float alpha, float r, float g, float b){
-	vertexColor.color[0] = alpha;
-	vertexColor.color[1] = r;
-	vertexColor.color[2] = g;
-	vertexColor.color[3] = b;
+	vertexColor.color[0] = r;
+	vertexColor.color[1] = g;
+	vertexColor.color[2] = b;
+	vertexColor.color[3] = alpha;
 }
 
 void View::accept(Visitor& visitor) {
