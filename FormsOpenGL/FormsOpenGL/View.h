@@ -29,8 +29,6 @@ public:
 	View(std::string);
 	virtual void setId(std::string);
 	virtual void setColor(float,float,float,float);
-	virtual float* getVertexDataArray();
-	virtual int getVertexDataArraySize();
 	virtual float* getVertexColorArray();
 	virtual int getVertexColorArraySize();
 	virtual void accept(Visitor&);

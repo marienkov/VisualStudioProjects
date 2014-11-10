@@ -48,6 +48,9 @@
     <ClCompile Include="Rectangle3D.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Form.xml">
@@ -86,6 +89,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Rectangle3D.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

@@ -42,7 +42,7 @@ void Controller::mouseMove(int x, int y) {
 		mouseLeftButtonPressed = false;
 		return;
 	}
-	DrawerVisitor::rotateCamera(cameraRotateY * (y - mouseYstart), cameraRotateX * (x - mouseXstart), 0);
+	DrawerVisitor::rotateCamera(cameraRotateY * ( mouseYstart - y), cameraRotateX * (x - mouseXstart), 0);
 	glutPostRedisplay();
 	mouseYstart = y;
 	mouseXstart = x;

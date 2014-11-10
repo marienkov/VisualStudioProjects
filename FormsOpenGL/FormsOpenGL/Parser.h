@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Button.h"
 #include "Triangle.h"
+#include "Rectangle3D.h"
 #include "map"
 
 class Parser
@@ -28,6 +29,7 @@ private:
 	
 	std::shared_ptr<View> parseButton(std::ifstream& file, std::string currentLine, int current);
 	std::shared_ptr<View> parseTriangle(std::ifstream& file, std::string currentLine, int current);
+	std::shared_ptr<View> parseRectangle3D(std::ifstream& file, std::string currentLine, int current);
 	void initSupportedViews();
 public:
 	Parser();

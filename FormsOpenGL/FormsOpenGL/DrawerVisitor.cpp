@@ -84,37 +84,37 @@ void DrawerVisitor::visit(Triangle* triangle) {
 void DrawerVisitor::visit(Rectangle3D* rect3d) {
 	std::cout << "DrawerVisitor::visit(Button* button)" << std::endl;
 
-	glUseProgram(Program);
 	GLuint VBO[6];
-
 	glGenBuffers(6, VBO);
 
 	for (int i = 0; i < 6; ++i) {
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
-	glBufferData(GL_ARRAY_BUFFER, rect3d->getSideVertexDataArraySize(), rect3d->getSideVertexDataArray(i), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
-	checkOpenGLerror();
-	glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
+		glUseProgram(Program);
+		glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
+		glBufferData(GL_ARRAY_BUFFER, rect3d->getSideVertexDataArraySize(), rect3d->getSideVertexDataArray(i), GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
+		checkOpenGLerror();
+		glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
 
-	glUniform4fv(Unif_color, 1, button->getVertexColorArray());
-	checkOpenGLerror();
-	glEnableVertexAttribArray(Attrib_vertex);
-	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	checkOpenGLerror();
-	glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	checkOpenGLerror();
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	checkOpenGLerror();
-	glDisableVertexAttribArray(Attrib_vertex);
-	checkOpenGLerror();
-	glDeleteBuffers(1, &VBO);
-	checkOpenGLerror();
-	glUseProgram(0);
+		glUniform4fv(Unif_color, 1, rect3d->getVertexColorArray());
+		checkOpenGLerror();
+		glEnableVertexAttribArray(Attrib_vertex);
+		checkOpenGLerror();
+		glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
+		checkOpenGLerror();
+		glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		checkOpenGLerror();
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		checkOpenGLerror();
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		checkOpenGLerror();
+		glDisableVertexAttribArray(Attrib_vertex);
+		checkOpenGLerror();
+		glDeleteBuffers(1, &VBO[i]);
+		checkOpenGLerror();
+		glUseProgram(0);
 
-	checkOpenGLerror();
+		checkOpenGLerror();
+	}
 }
 
 void DrawerVisitor::initShader()

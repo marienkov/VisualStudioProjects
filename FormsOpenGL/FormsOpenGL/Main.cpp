@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 
+#include "Log.h"
 #include "Parser.h"
 #include "Visitor.h"
 #include "DrawerVisitor.h"
@@ -56,6 +57,8 @@ public:
 };
 
 int main(int argc, char **argv) {
+
+	Log::debug = true;
 	//todo: Delete after test
 	Matrix<float> matrixTest(4,4);
 	matrixTest.loadIdentityMatrix();

@@ -69,6 +69,7 @@
   <ItemGroup>
     <ClCompile Include="DrawerVisitor.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="MVPMatrix4.cpp" />
     <ClCompile Include="Rectangle3D.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -87,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="DrawerVisitor.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="MVPMatrix4.h" />
     <ClInclude Include="Rectangle3D.h" />
