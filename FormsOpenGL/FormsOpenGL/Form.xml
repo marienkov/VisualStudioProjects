@@ -4,11 +4,11 @@
   <Button>
     id = "x"
     x0 = "-1.0"
-    y0 = "-0.025"
+    y0 = "-0.01"
     z0 = "0"
     width = "2"
-    height = "0.05"
-    cAlpha = "0.5"
+    height = "0.02"
+    cAlpha = "1"
     cRed = "1"
     cGreen = "1"
     cBlue = "1"
@@ -18,20 +18,20 @@
   //Y
   <Button>
     id = "y"
-    x0 = "-0.025"
+    x0 = "-0.01"
     y0 = "1"
     z0 = "0"
-    width = "0.05"
+    width = "0.02"
     height = "2"
-    cAlpha = "0.5"
+    cAlpha = "1"
     cRed = "1"
     cGreen ="1"
     cBlue = "1"
   </Button>
 
-  Button>
+  <Button>
     id  =  "rect2"    x0  =  "-0.5"    y0="0.5" z0="0.1"   width="1"    height="1"
-    cAlpha="0.5"
+    cAlpha="1"
     cRed="0"
     cGreen="0"
     cBlue="1"
@@ -39,7 +39,7 @@
 
   <Button>
     id  =  "rect2"    x0  =  "-0.8"    y0="0.5" z0="0.5"   width="0.6"    height="1"
-    cAlpha="0.5"
+    cAlpha="1"
     cRed="0"
     cGreen="1"
     cBlue="0"
@@ -56,7 +56,7 @@
     x2  =  "0"
     y2="0.7"
     z2="0"
-    cAlpha="0.5"
+    cAlpha="1"
     cRed="1"
     cGreen="0"
     cBlue="0.2"
@@ -70,7 +70,7 @@
     width = "0.5"
     height = "0.5"
     lenght = "1"
-    cAlpha = "0.5"
+    cAlpha = "1"
     cRed = "1"
     cGreen ="1"
     cBlue = "0"

@@ -128,7 +128,6 @@ Matrix<T>* Matrix<T>::multiply(const Matrix<T>& matrix) {
 	return this;
 }
 
-////
 template<class T>
 Matrix<T>* Matrix<T>::operator+(const Matrix<T>* matrix) const {
 	T* tempMatrix = new T[row*col];
@@ -168,7 +167,7 @@ void Matrix<T>::add(const Matrix<T>& matrix) {
 template<class T>
 void Matrix<T>::reset(T* newData, int row, int col) {
 	delete[] data;
-	//this->row = row;
-	//this->col = col;
+	this->row = row;
+	this->col = col;
 	data = newData;
 }

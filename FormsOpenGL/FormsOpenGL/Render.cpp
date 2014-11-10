@@ -24,5 +24,5 @@ void Render::render() {
 	for (std::list<std::shared_ptr<View>>::iterator it = viewList->begin(); it != viewList->end(); ++it) {
 		it->get()->accept(drawerVisitor);
 	}
-	glFlush();  // Render now
+	glFlush();  // Render now*/
 }

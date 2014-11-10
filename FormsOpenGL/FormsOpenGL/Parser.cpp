@@ -122,7 +122,6 @@ std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string curre
 	return rect;
 }
 
-//NOT USING ANYWHERE
 std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string currentLine, int current) {
 	unsigned char validation = 0;
 	unsigned char validationSuccess = 16383;

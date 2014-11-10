@@ -25,10 +25,6 @@ void View::setColor(float alpha, float r, float g, float b){
 	vertexColor.color[3] = alpha;
 }
 
-void View::accept(Visitor& visitor) {
-	std::cout << "" << std::endl;
-}
-
 float* View::getVertexColorArray() {
 	return vertexColor.color;
 }

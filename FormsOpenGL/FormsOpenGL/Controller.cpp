@@ -40,16 +40,16 @@ void Controller::mouseMove(int x, int y) {
 		mouseXstart = x;
 		mouseYstart = y;
 		mouseLeftButtonPressed = false;
-		return;
 	}
-	DrawerVisitor::rotateCamera(cameraRotateY * ( mouseYstart - y), cameraRotateX * (x - mouseXstart), 0);
-	glutPostRedisplay();
-	mouseYstart = y;
-	mouseXstart = x;
+	else {
+		DrawerVisitor::rotateCamera(cameraRotateY * ( mouseYstart - y), cameraRotateX * (mouseXstart-x), 0);
+		glutPostRedisplay();
+		mouseYstart = y;
+		mouseXstart = x;
+	}
 }
 
 void Controller::keyboardSpecialAction(int key, int x, int y) {
-	std::cout << "Key: " << key << "   X: " << x << "   Y: " << y << std::endl;
 	switch (key)
 	{
 	case GLUT_KEY_UP:
@@ -72,18 +72,17 @@ void Controller::keyboardSpecialAction(int key, int x, int y) {
 }
 
 void Controller::mouseScroll(int button, int dir, int x, int y) {
-	std::cout << "mouseScroll dir =  " << dir << std::endl;
-	if (dir > 0) { //zoom in
+	if (dir > 0) {
 		DrawerVisitor::scale(1.1);
-	} else { //zoom out
+	} else {
 		DrawerVisitor::scale(0.9);
 	}
 }
 
 void Controller::keyboardPressedAction(unsigned char key, int x, int y) {
 	switch (key) {
-	case 27:       // When escape is pressed...
-		exit(0);    // Exit The Program
+	case 27:
+		exit(0);
 		break;
 	default:
 		break;
@@ -92,6 +91,5 @@ void Controller::keyboardPressedAction(unsigned char key, int x, int y) {
 
 void Controller::resizeWindow(int width, int height)
 {
-	std::cout << "glViewport(0, 0, width, height);" << std::endl;
 	glViewport(0, 0, width, height);
 }

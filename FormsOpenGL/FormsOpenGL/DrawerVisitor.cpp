@@ -8,22 +8,19 @@ DrawerVisitor::DrawerVisitor() : Attrib_vertex(0), Unif_color(0), Program(0), sc
 	instance = this;
 }
 
-
 DrawerVisitor::~DrawerVisitor()
 {
 	freeShader();
 }
 
 void DrawerVisitor::visit(Button* button) {
-	std::cout << "DrawerVisitor::visit(Button* button)" << std::endl;
-
 	glUseProgram(Program);
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	glBufferData(GL_ARRAY_BUFFER, button->getVertexDataArraySize(), button->getVertexDataArray(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	checkOpenGLerror();
 	glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
 
@@ -49,13 +46,11 @@ void DrawerVisitor::visit(Button* button) {
 }
 
 void DrawerVisitor::visit(Triangle* triangle) {
-	std::cout << "DrawerVisitor::visit(Triangle* triangle)" << std::endl;
-
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, triangle->getVertexDataArraySize(), triangle->getVertexDataArray(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	checkOpenGLerror();
 
 	glUseProgram(Program);
@@ -63,7 +58,7 @@ void DrawerVisitor::visit(Triangle* triangle) {
 	checkOpenGLerror();
 	glEnableVertexAttribArray(Attrib_vertex);
 	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); //free buffer
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	checkOpenGLerror();
 	glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	checkOpenGLerror();
@@ -80,10 +75,7 @@ void DrawerVisitor::visit(Triangle* triangle) {
 	checkOpenGLerror();
 }
 
-// TODO: upgrade buffer usage
 void DrawerVisitor::visit(Rectangle3D* rect3d) {
-	std::cout << "DrawerVisitor::visit(Button* button)" << std::endl;
-
 	GLuint VBO[6];
 	glGenBuffers(6, VBO);
 
@@ -91,7 +83,7 @@ void DrawerVisitor::visit(Rectangle3D* rect3d) {
 		glUseProgram(Program);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
 		glBufferData(GL_ARRAY_BUFFER, rect3d->getSideVertexDataArraySize(), rect3d->getSideVertexDataArray(i), GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0); //buffer deactivation
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		checkOpenGLerror();
 		glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
 
@@ -109,17 +101,15 @@ void DrawerVisitor::visit(Rectangle3D* rect3d) {
 		checkOpenGLerror();
 		glDisableVertexAttribArray(Attrib_vertex);
 		checkOpenGLerror();
-		glDeleteBuffers(1, &VBO[i]);
-		checkOpenGLerror();
 		glUseProgram(0);
-
 		checkOpenGLerror();
 	}
+	glDeleteBuffers(6, VBO);
+	checkOpenGLerror();
 }
 
 void DrawerVisitor::initShader()
 {
-	std::cout << "initShader()" << std::endl;
 	const char* vsSource =
 		"attribute vec3 coord;\n"
 		"uniform mat4 MVP;\n"
@@ -155,21 +145,20 @@ void DrawerVisitor::initShader()
 		return;
 	}
 
-	///! Get ID of vertex attribute from already built program 
 	const char* attr_name = "coord";
 	Attrib_vertex = glGetAttribLocation(Program, attr_name);
 	if (Attrib_vertex == -1) {
 		std::cout << "could not bind attrib " << attr_name << std::endl;
 		return;
 	}
-	//! Get ID of color attribute from already built program
+
 	const char* unif_name = "color";
 	Unif_color = glGetUniformLocation(Program, unif_name);
 	if (Unif_color == -1) {
 		std::cout << "could not bind uniform " << unif_name << std::endl;
 		return;
 	}
-	//! Get ID of MVP from already built program
+
 	const char* MVP_name = "MVP";
 	Unif_MVP = glGetUniformLocation(Program, MVP_name);
 	if (Unif_MVP == -1) {
@@ -207,15 +196,8 @@ void DrawerVisitor::shaderLog(unsigned int shader) {
 
 void DrawerVisitor::freeShader()
 {
-	std::cout << "freeShader()" << std::endl;
 	glDeleteProgram(Program);
 	glUseProgram(0);
-}
-
-void DrawerVisitor::freeVBO()
-{
-	std::cout << "freeVBO()" << std::endl;
-	//glDeleteBuffers(1, &VBO);
 }
 
 void DrawerVisitor::moveX(float dx) {
@@ -225,8 +207,6 @@ void DrawerVisitor::moveX(float dx) {
 		   			   0, 0, 1, 0,
 					   0, 0, 0, 1, }, 4, 4);
 	instance->MVP.getModelTransfer4()->multiply(&transf);
-	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
-	//glutPostRedisplay();
 }
 
 void DrawerVisitor::moveY(float dy) {
@@ -236,8 +216,6 @@ void DrawerVisitor::moveY(float dy) {
 					   0, 0, 1, 0,
 					   0, 0, 0, 1, }, 4, 4);
 	instance->MVP.getModelTransfer4()->multiply(&transf);
-	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
-	//glutPostRedisplay();
 }
 
 void DrawerVisitor::scale(float s) {
@@ -248,15 +226,10 @@ void DrawerVisitor::scale(float s) {
 		0, 0, instance->scaleFactor, 0, 
 		0, 0, 0, 1, };
 	instance->MVP.getModelScaling4()->reset(scale, 4, 4);
-	//*(instance->MVP.getCurrentModelMatrix4())*(&trVector);
 	glutPostRedisplay();
 }
 
 void DrawerVisitor::rotateCamera(float dAngleX, float dAngleY, float dAngleZ) {
-	/*dAngleX = 0;
-	dAngleY = 0;
-	dAngleZ = 0;*/
-
 	instance->angleX += dAngleX;
 	instance->angleY += dAngleY;
 	instance->angleZ += dAngleZ;
@@ -281,6 +254,4 @@ void DrawerVisitor::rotateCamera(float dAngleX, float dAngleY, float dAngleZ) {
 		0,					   0,                      0, 1 }, 4, 4);
 		instance->MVP.getModelRotating4()->loadIdentityMatrix();
 		instance->MVP.getModelRotating4()->multiply(rotateX)->multiply(rotateY)->multiply(rotateZ);
-		//instance->MVP.getModelScaling4()->multiply(&scale);
-	//instance->MVP.rotateModel4(angleX, angleY);
 }

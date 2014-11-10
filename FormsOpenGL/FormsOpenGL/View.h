@@ -31,6 +31,6 @@ public:
 	virtual void setColor(float,float,float,float);
 	virtual float* getVertexColorArray();
 	virtual int getVertexColorArraySize();
-	virtual void accept(Visitor&);
+	virtual void accept(Visitor&) = 0;
 	virtual ~View();
 };

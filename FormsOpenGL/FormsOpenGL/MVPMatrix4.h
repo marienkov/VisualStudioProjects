@@ -16,10 +16,7 @@ public:
 	Matrix<float>* getViewTransform4();
 	Matrix<float>* getProjectionTransfor4();
 	Matrix<float>* getMVPTransform4();
-	
-	//void translateModel4(const float(&translation4)[4]);
-	//void scaleModel4(const float(&scale4)[4]);
-	//void rotateModel4(float angleX, float angleY, float angleZ);
+
 private:
 	bool changed;
 
@@ -32,4 +29,3 @@ private:
 	Matrix<float>* projectionTransform4;
 	Matrix<float>* MVP4;
 };
-
