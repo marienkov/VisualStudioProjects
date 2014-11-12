@@ -12,13 +12,13 @@ class Controller
 private:
 	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
 
-	static float cameraPositionX;
-	static float cameraPositionY;
-	static float cameraPositionZ;
+	static float viewRotateX;
+	static float viewRotateY;
+	static float viewRotateZ;
 
-	static float cameraRotateY;
-	static float cameraRotateX;
-	static float cameraRotateZ;
+	static float viewPositionX;
+	static float viewPositionY;
+	static float viewPositionZ;
 
 	static bool mouseLeftButtonPressed;
 	static int mouseXstart;

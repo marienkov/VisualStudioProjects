@@ -19,10 +19,11 @@ void Render::renderWrapper() {
 }
 
 void Render::render() {
-	//glutSwapBuffers();
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	for (std::list<std::shared_ptr<View>>::iterator it = viewList->begin(); it != viewList->end(); ++it) {
 		it->get()->accept(drawerVisitor);
 	}
+	glutSolidSphere(0.4, 20, 16);
 	glFlush();  // Render now*/
+	glutSwapBuffers();
 }

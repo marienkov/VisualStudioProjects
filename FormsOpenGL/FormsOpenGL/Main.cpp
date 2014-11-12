@@ -30,9 +30,29 @@ int initOpenGL(int argc1, char **argv1) {
 		return 1;
 	}
 
-	glClearColor(0, 0, 0, 1);
+	glClearColor(0.1, 0.1, 0.1, 1);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//Enable transperancy
 	glEnable(GL_BLEND);
+	//Enable depth buffer
+	glEnable(GL_DEPTH_TEST);
+	//Enable light
+	GLfloat mat_specular[] = { 0, 0, 0, 0 };
+	GLfloat mat_shininess[] = { 100 };
+	GLfloat light_ambient[] = { 1.0, 0, 0, 0.0 };
+	GLfloat light_position[] = { 0.7, 0.7, -1.0, 0.0 };
+	GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };
+	glShadeModel(GL_SMOOTH);
+	//only for specular light
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess); //blik radius
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, white_light);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 }
 
 int main(int argc, char **argv) {

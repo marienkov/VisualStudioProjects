@@ -8,7 +8,7 @@ public:
 	MVPMatrix4();
 	virtual ~MVPMatrix4();
 
-	Matrix<float>* getModelTransfer4();
+	Matrix<float>* getModelTranslate4();
 	Matrix<float>* getModelScaling4();
 	Matrix<float>* getModelRotating4();
 	Matrix<float>* getModelTransform4();
@@ -20,7 +20,7 @@ public:
 private:
 	bool changed;
 
-	Matrix<float>* modelTransfer4;
+	Matrix<float>* modelTranslate4;
 	Matrix<float>* modelScaling4;
 	Matrix<float>* modelRotating4;
 	Matrix<float>* modelTransform4;

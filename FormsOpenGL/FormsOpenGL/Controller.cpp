@@ -1,12 +1,12 @@
 #include "Controller.h"
 
-float Controller::cameraPositionX = 0.1f;
-float Controller::cameraPositionY = 0.1f;
-float Controller::cameraPositionZ = 0.1f;
+float Controller::viewPositionX = 0.05f;
+float Controller::viewPositionY = 0.05f;
+float Controller::viewPositionZ = 0.05f;
 
-float Controller::cameraRotateY = 0.005f;
-float Controller::cameraRotateX = 0.005f;
-float Controller::cameraRotateZ = 0;
+float Controller::viewRotateX = 0.005f;
+float Controller::viewRotateY = 0.005f;
+float Controller::viewRotateZ = 0;
 
 int Controller::mouseXstart = 0;
 int Controller::mouseYstart = 0;
@@ -42,7 +42,7 @@ void Controller::mouseMove(int x, int y) {
 		mouseLeftButtonPressed = false;
 	}
 	else {
-		DrawerVisitor::rotateCamera(cameraRotateY * ( mouseYstart - y), cameraRotateX * (mouseXstart-x), 0);
+		DrawerVisitor::rotateModel(viewRotateY * (mouseYstart - y), viewRotateX * (mouseXstart - x), 0);
 		glutPostRedisplay();
 		mouseYstart = y;
 		mouseXstart = x;
@@ -53,16 +53,16 @@ void Controller::keyboardSpecialAction(int key, int x, int y) {
 	switch (key)
 	{
 	case GLUT_KEY_UP:
-		DrawerVisitor::moveY(0.2);
+		DrawerVisitor::moveY(viewPositionY);
 		break;
 	case GLUT_KEY_DOWN:
-		DrawerVisitor::moveY(-0.2);
+		DrawerVisitor::moveY(-viewPositionY);
 		break;
 	case GLUT_KEY_RIGHT:
-		DrawerVisitor::moveX(0.2);
+		DrawerVisitor::moveX(viewPositionX);
 		break;
 	case GLUT_KEY_LEFT:
-		DrawerVisitor::moveX(-0.2);
+		DrawerVisitor::moveX(-viewPositionX);
 		break;
 	default:
 		break;

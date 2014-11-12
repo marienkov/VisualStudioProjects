@@ -3,8 +3,8 @@
 
 MVPMatrix4::MVPMatrix4() : changed(true)
 {
-	modelTransfer4 = new Matrix<float>(4,4);
-	modelTransfer4->loadIdentityMatrix();
+	modelTranslate4 = new Matrix<float>(4,4);
+	modelTranslate4->loadIdentityMatrix();
 	modelScaling4 = new Matrix<float>(4, 4);
 	modelScaling4->loadIdentityMatrix();
 	modelRotating4 = new Matrix<float>(4, 4);
@@ -22,7 +22,7 @@ MVPMatrix4::MVPMatrix4() : changed(true)
 }
 MVPMatrix4::~MVPMatrix4()
 {
-	delete modelTransfer4;
+	delete modelTranslate4;
 	delete modelScaling4;
 	delete modelRotating4;
 	delete modelTransform4;
@@ -41,13 +41,13 @@ Matrix<float>* MVPMatrix4::getModelScaling4(){
 	return modelScaling4;
 }
 
-Matrix<float>* MVPMatrix4::getModelTransfer4(){
-	return modelTransfer4;
+Matrix<float>* MVPMatrix4::getModelTranslate4(){
+	return modelTranslate4;
 }
 
 Matrix<float>* MVPMatrix4::getModelTransform4(){
 	delete modelTransform4;
-	modelTransform4 = (*modelTransfer4) * (modelRotating4);
+	modelTransform4 = (*modelTranslate4) * (modelRotating4);
 	modelTransform4->multiply(modelScaling4);
 	return modelTransform4;
 }

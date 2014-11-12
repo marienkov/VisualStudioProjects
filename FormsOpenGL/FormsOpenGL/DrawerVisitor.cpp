@@ -206,7 +206,7 @@ void DrawerVisitor::moveX(float dx) {
 					   0, 1, 0, 0,
 		   			   0, 0, 1, 0,
 					   0, 0, 0, 1, }, 4, 4);
-	instance->MVP.getModelTransfer4()->multiply(&transf);
+	instance->MVP.getModelTranslate4()->multiply(&transf);
 }
 
 void DrawerVisitor::moveY(float dy) {
@@ -215,7 +215,7 @@ void DrawerVisitor::moveY(float dy) {
 					   0, 1, 0, dy,
 					   0, 0, 1, 0,
 					   0, 0, 0, 1, }, 4, 4);
-	instance->MVP.getModelTransfer4()->multiply(&transf);
+	instance->MVP.getModelTranslate4()->multiply(&transf);
 }
 
 void DrawerVisitor::scale(float s) {
@@ -229,7 +229,7 @@ void DrawerVisitor::scale(float s) {
 	glutPostRedisplay();
 }
 
-void DrawerVisitor::rotateCamera(float dAngleX, float dAngleY, float dAngleZ) {
+void DrawerVisitor::rotateModel(float dAngleX, float dAngleY, float dAngleZ) {
 	instance->angleX += dAngleX;
 	instance->angleY += dAngleY;
 	instance->angleZ += dAngleZ;

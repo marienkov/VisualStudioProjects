@@ -41,7 +41,7 @@ public:
 	static void moveY(float dy);
 	static void scale(float s);
 
-	static void rotateCamera(float dAngleX, float dAngleY, float dAngleZ);
+	static void rotateModel(float dAngleX, float dAngleY, float dAngleZ);
 };
 
 struct vertex {
