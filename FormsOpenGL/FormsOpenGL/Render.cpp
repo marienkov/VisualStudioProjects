@@ -23,7 +23,7 @@ void Render::render() {
 	for (std::list<std::shared_ptr<View>>::iterator it = viewList->begin(); it != viewList->end(); ++it) {
 		it->get()->accept(drawerVisitor);
 	}
-	glutSolidSphere(0.4, 20, 16);
+	glutSolidSphere(0.1, 20, 16);
 	glFlush();  // Render now*/
 	glutSwapBuffers();
 }

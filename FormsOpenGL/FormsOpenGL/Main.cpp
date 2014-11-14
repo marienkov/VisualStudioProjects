@@ -15,7 +15,7 @@ char* fileName = "Form.xml";
 int initOpenGL(int argc1, char **argv1) {
 	glutInit(&argc1, argv1);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
-	glutInitWindowPosition(800, 500);
+	glutInitWindowPosition(800, 400);
 	glutInitWindowSize(600, 600);
 	glutCreateWindow("FormsOpenGL");
 
@@ -30,22 +30,24 @@ int initOpenGL(int argc1, char **argv1) {
 		return 1;
 	}
 
-	glClearColor(0.1, 0.1, 0.1, 1);
+	glClearColor(0, 0, 0, 1);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//Enable transperancy
 	glEnable(GL_BLEND);
 	//Enable depth buffer
 	glEnable(GL_DEPTH_TEST);
 	//Enable light
-	GLfloat mat_specular[] = { 0, 0, 0, 0 };
-	GLfloat mat_shininess[] = { 100 };
-	GLfloat light_ambient[] = { 1.0, 0, 0, 0.0 };
-	GLfloat light_position[] = { 0.7, 0.7, -1.0, 0.0 };
-	GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };
-	glShadeModel(GL_SMOOTH);
+	GLfloat mat_specular[] = { 0.3f, 1.0f, 0.0f, 1.0f };
+	GLfloat mat_shininess[] = { 120 };
+	GLfloat light_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
+	GLfloat light_position[] = { 0.4, 0.4, 10.0, 0.0 };
+	GLfloat white_light[] = { 1, 1, 1, 1 };
+
+	glEnable(GL_COLOR_MATERIAL);
+
 	//only for specular light
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess); //blik radius
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess); //blik radius
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, white_light);

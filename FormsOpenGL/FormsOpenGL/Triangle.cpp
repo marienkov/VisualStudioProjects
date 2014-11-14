@@ -3,44 +3,49 @@
 
 Triangle::Triangle()
 {
+	pVertexColor = vertexColor;
+	pVertexNormal = vertexNormal;
+	pVertexPosition = vertexPosition;
+	pVertexIndex = index;
 
+	colorCount = 3;
+	normalCount = 3;
+	vertexCount = 3;
+	indexCount = 3;
+
+	initIndexes();
 }
 
-Triangle::Triangle(std::string name, int color, VertexCoord ver1, VertexCoord ver2, VertexCoord ver3)
+Triangle::Triangle(std::string name)
 	: View(name) {
-	vertexData[0] = ver1;
-	vertexData[1] = ver2;
-	vertexData[2] = ver3;
+	pVertexColor = vertexColor;
+	pVertexNormal = vertexNormal;
+	pVertexPosition = vertexPosition;
+	pVertexIndex = index;
+
+	colorCount = 3;
+	normalCount = 3;
+	vertexCount = 3;
+	indexCount = 3;
+
+	initIndexes();
 }
 
 Triangle::~Triangle()
 {
 }
 
-void Triangle::setAllVer(VertexCoord ver1, VertexCoord ver2, VertexCoord ver3) {
-	vertexData[0] = ver1;
-	vertexData[1] = ver2;
-	vertexData[2] = ver3;
+void Triangle::initIndexes() {
+	index[0] = 0;
+	index[1] = 1;
+	index[2] = 2;
 }
 
-void Triangle::setVer1(VertexCoord ver) {
-	vertexData[0] = ver;
-}
-
-void Triangle::setVer2(VertexCoord ver) {
-	vertexData[1] = ver;
-}
-
-void Triangle::setVer3(VertexCoord ver) {
-	vertexData[2] = ver;
-}
-
-float* Triangle::getVertexDataArray() {
-	return (vertexData[0]).data;
-}
-
-int Triangle::getVertexDataArraySize() {
-	return sizeof(vertexData) * 3;
+void Triangle::setCoordinates(VertexPosition v1, VertexPosition v2, VertexPosition v3) {
+	updateVertexPosition(0, v1);
+	updateVertexPosition(1, v2);
+	updateVertexPosition(2, v3);
+	initNormals();
 }
 
 void Triangle::accept(Visitor& visitor) {

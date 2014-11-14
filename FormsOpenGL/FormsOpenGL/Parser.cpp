@@ -105,9 +105,9 @@ std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string curre
 				}
 				log("Valid Button");
 				rect->setId(id);
-				rect->setAllVer(View::VertexCoord(x0, y0, z0), View::VertexCoord(x0, y0 - height, z0),
-					View::VertexCoord(x0 + width, y0 - height, z0), View::VertexCoord(x0 + width, y0, z0));
-				rect->setColor(cAlpha, cRed, cGreen, cBlue);
+				rect->setCoordinates(View::VertexPosition(x0, y0, z0), View::VertexPosition(x0, y0 - height, z0),
+					View::VertexPosition(x0 + width, y0 - height, z0), View::VertexPosition(x0 + width, y0, z0));
+				rect->setColor(cRed, cGreen, cBlue, cAlpha);
 				return rect;
 			}
 			if (start == -1)
@@ -189,9 +189,9 @@ std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string cur
 				}
 				log("Valid Triangle");
 				trian->setId(id);
-				trian->setColor(cAlpha, cRed, cGreen, cBlue);
-				trian->setAllVer(View::VertexCoord(x0, y0, z0), View::VertexCoord(x1, y1, z1),
-					View::VertexCoord(x2, y2, z2));
+				trian->setColor(cRed, cGreen, cBlue, cAlpha);
+				trian->setCoordinates(View::VertexPosition(x0, y0, z0), View::VertexPosition(x1, y1, z1),
+					View::VertexPosition(x2, y2, z2));
 				return trian;
 			}
 			if (start == -1)
@@ -270,12 +270,12 @@ std::shared_ptr<View> Parser::parseRectangle3D(std::ifstream& file, std::string 
 				}
 				log("Valid Button");
 				rect3D->setId(id);
-				rect3D->setAllVer(
-					View::VertexCoord(x0, y0, z0), View::VertexCoord(x0, y0 - height, z0),
-					View::VertexCoord(x0 + width, y0 - height, z0), View::VertexCoord(x0 + width, y0, z0),
-					View::VertexCoord(x0 + width, y0 - height, z0 - lenght), View::VertexCoord(x0 + width, y0, z0-lenght),
-					View::VertexCoord(x0, y0 - height, z0 - lenght), View::VertexCoord(x0, y0, z0 - lenght));
-				rect3D->setColor(cAlpha, cRed, cGreen, cBlue);
+				rect3D->setCoordinates(
+					View::VertexPosition(x0, y0, z0), View::VertexPosition(x0, y0 - height, z0),
+					View::VertexPosition(x0 + width, y0 - height, z0), View::VertexPosition(x0 + width, y0, z0),
+					View::VertexPosition(x0 + width, y0 - height, z0 - lenght), View::VertexPosition(x0 + width, y0, z0 - lenght),
+					View::VertexPosition(x0, y0 - height, z0 - lenght), View::VertexPosition(x0, y0, z0 - lenght));
+				rect3D->setColor(cRed, cGreen, cBlue, cAlpha);
 				return rect3D;
 			}
 			if (start == -1)

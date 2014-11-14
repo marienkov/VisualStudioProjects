@@ -3,56 +3,54 @@
 
 Button::Button()
 {
+	pVertexColor = vertexColor;
+	pVertexNormal = vertexNormal;
+	pVertexPosition = vertexPosition;
+	pVertexIndex = index;
+
+	colorCount = 4;
+	normalCount = 6;
+	vertexCount = 4;
+	indexCount = 6;
+
+	initIndexes();
 }
 
-Button::Button(std::string name, int color, VertexCoord ver1, VertexCoord ver2, VertexCoord ver3, VertexCoord ver4)
+Button::Button(std::string name)
 	: View(name)
 {
-	vertexData[0] = ver1;
-	vertexData[1] = ver2;
-	vertexData[2] = ver4;
-	vertexData[3] = ver4;
-	vertexData[4] = ver2;
-	vertexData[5] = ver3;
+	pVertexColor = vertexColor;
+	pVertexNormal = vertexNormal;
+	pVertexPosition = vertexPosition;
+	pVertexIndex = index;
+
+	colorCount = 4;
+	normalCount = 6;
+	vertexCount = 4;
+	indexCount = 6;
+
+	initIndexes();
 }
 
 Button::~Button()
 {
 }
 
-void Button::setAllVer(VertexCoord ver1, VertexCoord ver2, VertexCoord ver3, VertexCoord ver4) {
-	vertexData[0] = ver1;
-	vertexData[1] = ver2;
-	vertexData[2] = ver4;
-	vertexData[3] = ver4;
-	vertexData[4] = ver2;
-	vertexData[5] = ver3;
+void Button::initIndexes() {
+	index[0] = 0;
+	index[1] = 1;
+	index[2] = 2;
+	index[3] = 2;
+	index[4] = 3;
+	index[5] = 0;
 }
 
-void Button::setVer1(VertexCoord ver) {
-	vertexData[0] = ver;
-}
-
-void Button::setVer2(VertexCoord ver) {
-	vertexData[1] = ver;
-	vertexData[4] = ver;
-}
-
-void Button::setVer3(VertexCoord ver) {
-	vertexData[5] = ver;
-}
-
-void Button::setVer4(VertexCoord ver) {
-	vertexData[2] = ver;
-	vertexData[3] = ver;
-}
-
-float* Button::getVertexDataArray() {
-	return (vertexData[0]).data;
-}
-
-int Button::getVertexDataArraySize() {
-	return sizeof(vertexData) * 6;
+void Button::setCoordinates(VertexPosition v1, VertexPosition v2, VertexPosition v3, VertexPosition v4) {
+	updateVertexPosition(0, v1);
+	updateVertexPosition(1, v2);
+	updateVertexPosition(2, v3);
+	updateVertexPosition(3, v4);
+	initNormals();
 }
 
 void Button::accept(Visitor& visitor) {

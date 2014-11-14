@@ -13,99 +13,128 @@ DrawerVisitor::~DrawerVisitor()
 	freeShader();
 }
 
-void DrawerVisitor::visit(Button* button) {
-	glUseProgram(Program);
-	GLuint VBO = 0;
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+void DrawerVisitor::visit(Button* view) {
+	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
-	glBufferData(GL_ARRAY_BUFFER, button->getVertexDataArraySize(), button->getVertexDataArray(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	checkOpenGLerror();
-	glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
 
-	glUniform4fv(Unif_color, 1, button->getVertexColorArray());
-	checkOpenGLerror();
-	glEnableVertexAttribArray(Attrib_vertex);
-	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	checkOpenGLerror();
-	glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	checkOpenGLerror();
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	checkOpenGLerror();
-	glDisableVertexAttribArray(Attrib_vertex);
-	checkOpenGLerror();
-	glDeleteBuffers(1, &VBO);
-	checkOpenGLerror();
-	glUseProgram(0);
+	glGenBuffers(1, &vId);
+	glBindBuffer(GL_ARRAY_BUFFER, vId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
 
-	checkOpenGLerror();
+	glGenBuffers(1, &cId);
+	glBindBuffer(GL_ARRAY_BUFFER, cId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexColorSize(), view->getVertexColors(), GL_STATIC_DRAW);
+	glColorPointer(4, GL_FLOAT, 0, 0);
+
+	glGenBuffers(1, &nId);
+	glBindBuffer(GL_ARRAY_BUFFER, nId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
+	glNormalPointer(GL_FLOAT, 0, 0);
+
+	glGenBuffers(1, &iId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDeleteBuffers(1, &vId);
+	glDeleteBuffers(1, &cId);
+	glDeleteBuffers(1, &iId);
 }
 
-void DrawerVisitor::visit(Triangle* triangle) {
-	GLuint VBO = 0;
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, triangle->getVertexDataArraySize(), triangle->getVertexDataArray(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	checkOpenGLerror();
+void DrawerVisitor::visit(Triangle* view) {
+	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
-	glUseProgram(Program);
-	glUniform4fv(Unif_color, 1, triangle->getVertexColorArray());
-	checkOpenGLerror();
-	glEnableVertexAttribArray(Attrib_vertex);
-	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	checkOpenGLerror();
-	glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	checkOpenGLerror();
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	checkOpenGLerror();
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	checkOpenGLerror();
-	glDisableVertexAttribArray(Attrib_vertex);
-	checkOpenGLerror();
-	glDeleteBuffers(1, &VBO);
-	checkOpenGLerror();
-	glUseProgram(0);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
 
-	checkOpenGLerror();
+	glGenBuffers(1, &vId);
+	glBindBuffer(GL_ARRAY_BUFFER, vId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+
+	glGenBuffers(1, &cId);
+	glBindBuffer(GL_ARRAY_BUFFER, cId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexColorSize(), view->getVertexColors(), GL_STATIC_DRAW);
+	glColorPointer(4, GL_FLOAT, 0, 0);
+
+	glGenBuffers(1, &nId);
+	glBindBuffer(GL_ARRAY_BUFFER, nId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
+	glNormalPointer(GL_FLOAT, 0, 0);
+
+	glGenBuffers(1, &iId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDeleteBuffers(1, &vId);
+	glDeleteBuffers(1, &cId);
+	glDeleteBuffers(1, &iId);
 }
 
-void DrawerVisitor::visit(Rectangle3D* rect3d) {
-	GLuint VBO[6];
-	glGenBuffers(6, VBO);
+void DrawerVisitor::visit(Rectangle3D* view) {
+	static const GLfloat g_vertex_buffer_data[] = {
+		-0.5f, -0.5f, 0.1f,
+		0.8f, -0.5f, -0.5f,
+		0.0f, 0.5f, 0.7f
+	};
+	static const GLfloat color[] = {
+		1.0f, 1.0f, 1.0f, 1.0f,
+	};
 
-	for (int i = 0; i < 6; ++i) {
-		glUseProgram(Program);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
-		glBufferData(GL_ARRAY_BUFFER, rect3d->getSideVertexDataArraySize(), rect3d->getSideVertexDataArray(i), GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		checkOpenGLerror();
-		glUniformMatrix4fv(Unif_MVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
+	static const unsigned int normals[] = {
+		0.0f, 0.5f, 0.0f,
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 0.1f,
+	};
+	static const unsigned int index[] = {
+		0, 1, 2 };
 
-		glUniform4fv(Unif_color, 1, rect3d->getVertexColorArray());
-		checkOpenGLerror();
-		glEnableVertexAttribArray(Attrib_vertex);
-		checkOpenGLerror();
-		glBindBuffer(GL_ARRAY_BUFFER, VBO[i]);
-		checkOpenGLerror();
-		glVertexAttribPointer(Attrib_vertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-		checkOpenGLerror();
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		checkOpenGLerror();
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-		checkOpenGLerror();
-		glDisableVertexAttribArray(Attrib_vertex);
-		checkOpenGLerror();
-		glUseProgram(0);
-		checkOpenGLerror();
-	}
-	glDeleteBuffers(6, VBO);
-	checkOpenGLerror();
+	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+
+	glGenBuffers(1, &vId);
+	glBindBuffer(GL_ARRAY_BUFFER, vId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+
+	/*glGenBuffers(1, &cId);
+	glBindBuffer(GL_ARRAY_BUFFER, cId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexColorSize(), view->getVertexColors(), GL_STATIC_DRAW);
+	glColorPointer(4, GL_FLOAT, 0, 0);*/
+
+	glGenBuffers(1, &nId);
+	glBindBuffer(GL_ARRAY_BUFFER, nId);
+	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
+	glNormalPointer(GL_FLOAT, 0, 0);
+
+	glGenBuffers(1, &iId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDeleteBuffers(1, &vId);
+	//glDeleteBuffers(1, &cId);
+	glDeleteBuffers(1, &iId);
 }
 
 void DrawerVisitor::initShader()
@@ -114,7 +143,7 @@ void DrawerVisitor::initShader()
 		"attribute vec3 coord;\n"
 		"uniform mat4 MVP;\n"
 		"void main() {\n"
-		"  gl_Position = MVP*vec4(coord, 1.0);\n"
+		"  gl_Position = vec4(coord, 1.0);\n"
 		"}\n";
 	const char* fsSource =
 		"uniform vec4 color;\n"
@@ -162,7 +191,7 @@ void DrawerVisitor::initShader()
 	const char* MVP_name = "MVP";
 	Unif_MVP = glGetUniformLocation(Program, MVP_name);
 	if (Unif_MVP == -1) {
-		std::cout << "could not bind uniform " << unif_name << std::endl;
+		std::cout << "could not bind uniform " << MVP_name << std::endl;
 		return;
 	}
 

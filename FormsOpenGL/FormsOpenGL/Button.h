@@ -1,24 +1,28 @@
 #pragma once
 #include "View.h"
 
+// 0*********3
+// *  *      *
+// *     *   *
+// 1*********2
+
 class Button :
 	public View
 {
 private:
-	VertexCoord vertexData[6];
+	VertexColor vertexColor[4];
+	VertexNormal vertexNormal[6];
+	VertexPosition vertexPosition[4];
+	int index[6];
+
+	void initIndexes();
 public:
 	Button();
-	Button(std::string name, int, VertexCoord ver1, VertexCoord ver2, VertexCoord ver3, VertexCoord ver4);
+	Button(std::string name);
 	virtual ~Button();
 
-	void setAllVer(VertexCoord, VertexCoord, VertexCoord, VertexCoord);
-	void setVer1(VertexCoord);
-	void setVer2(VertexCoord);
-	void setVer3(VertexCoord);
-	void setVer4(VertexCoord);
-
-	float* getVertexDataArray();
-	int getVertexDataArraySize();
-
+	void setCoordinates(VertexPosition v1, VertexPosition v2,
+		VertexPosition v3, VertexPosition v4);
+	
 	void accept(Visitor&);
 };

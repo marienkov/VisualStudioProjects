@@ -43,8 +43,3 @@ public:
 
 	static void rotateModel(float dAngleX, float dAngleY, float dAngleZ);
 };
-
-struct vertex {
-	GLfloat x;
-	GLfloat y;
-};
