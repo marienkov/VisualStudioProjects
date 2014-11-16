@@ -38,24 +38,24 @@ Rectangle3D::~Rectangle3D()
 void Rectangle3D::initIndexes() {
 	index[0] = 0;   index[6] = 3;
 	index[1] = 1;   index[7] = 2;
-	index[2] = 2;   index[8] = 5;
-	index[3] = 2;   index[9] = 5;
-	index[4] = 3;   index[10] = 4;
+	index[2] = 2;   index[8] = 6;
+	index[3] = 2;   index[9] = 6;
+	index[4] = 3;   index[10] = 7;
 	index[5] = 0;   index[11] = 3;
 
-	index[12] = 4;   index[18] = 7;
-	index[13] = 5;   index[19] = 6;
-	index[14] = 6;   index[20] = 1;
-	index[15] = 6;   index[21] = 1;
-	index[16] = 7;   index[22] = 0;
-	index[17] = 4;   index[23] = 7;
+	index[12] = 7;   index[18] = 4;
+	index[13] = 6;   index[19] = 5;
+	index[14] = 5;   index[20] = 1;
+	index[15] = 5;   index[21] = 1;
+	index[16] = 4;   index[22] = 0;
+	index[17] = 7;   index[23] = 4;
 
-	index[24] = 7;   index[30] = 1;
-	index[25] = 0;   index[31] = 6;
-	index[26] = 3;   index[32] = 5;
-	index[27] = 3;   index[33] = 5;
-	index[28] = 4;   index[34] = 2;
-	index[29] = 0;   index[35] = 6;
+	index[24] = 4;   index[30] = 1;
+	index[25] = 0;   index[31] = 5;
+	index[26] = 3;   index[32] = 6;
+	index[27] = 3;   index[33] = 6;
+	index[28] = 7;   index[34] = 2;
+	index[29] = 4;   index[35] = 1;
 }
 
 void Rectangle3D::setCoordinates(
@@ -71,7 +71,7 @@ void Rectangle3D::setCoordinates(
 	updateVertexPosition(5, v6);
 	updateVertexPosition(6, v7);
 	updateVertexPosition(7, v8);
-	//initNormals();
+	initNormals();
 }
 
 void Rectangle3D::accept(Visitor& visitor) {

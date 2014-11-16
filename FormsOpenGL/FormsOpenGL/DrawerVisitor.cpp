@@ -86,27 +86,10 @@ void DrawerVisitor::visit(Triangle* view) {
 }
 
 void DrawerVisitor::visit(Rectangle3D* view) {
-	static const GLfloat g_vertex_buffer_data[] = {
-		-0.5f, -0.5f, 0.1f,
-		0.8f, -0.5f, -0.5f,
-		0.0f, 0.5f, 0.7f
-	};
-	static const GLfloat color[] = {
-		1.0f, 1.0f, 1.0f, 1.0f,
-	};
-
-	static const unsigned int normals[] = {
-		0.0f, 0.5f, 0.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 0.1f,
-	};
-	static const unsigned int index[] = {
-		0, 1, 2 };
-
 	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 
 	glGenBuffers(1, &vId);
@@ -114,10 +97,10 @@ void DrawerVisitor::visit(Rectangle3D* view) {
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
 
-	/*glGenBuffers(1, &cId);
+	glGenBuffers(1, &cId);
 	glBindBuffer(GL_ARRAY_BUFFER, cId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexColorSize(), view->getVertexColors(), GL_STATIC_DRAW);
-	glColorPointer(4, GL_FLOAT, 0, 0);*/
+	glColorPointer(4, GL_FLOAT, 0, 0);
 
 	glGenBuffers(1, &nId);
 	glBindBuffer(GL_ARRAY_BUFFER, nId);
@@ -132,8 +115,9 @@ void DrawerVisitor::visit(Rectangle3D* view) {
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
 	glDeleteBuffers(1, &vId);
-	//glDeleteBuffers(1, &cId);
+	glDeleteBuffers(1, &cId);
 	glDeleteBuffers(1, &iId);
 }
 

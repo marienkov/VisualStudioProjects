@@ -273,8 +273,8 @@ std::shared_ptr<View> Parser::parseRectangle3D(std::ifstream& file, std::string 
 				rect3D->setCoordinates(
 					View::VertexPosition(x0, y0, z0), View::VertexPosition(x0, y0 - height, z0),
 					View::VertexPosition(x0 + width, y0 - height, z0), View::VertexPosition(x0 + width, y0, z0),
-					View::VertexPosition(x0 + width, y0 - height, z0 - lenght), View::VertexPosition(x0 + width, y0, z0 - lenght),
-					View::VertexPosition(x0, y0 - height, z0 - lenght), View::VertexPosition(x0, y0, z0 - lenght));
+					View::VertexPosition(x0, y0, z0 - lenght), View::VertexPosition(x0, y0 - height, z0 - lenght),
+					View::VertexPosition(x0 + width, y0 - height, z0 - lenght), View::VertexPosition(x0 + width, y0, z0 - lenght));
 				rect3D->setColor(cRed, cGreen, cBlue, cAlpha);
 				return rect3D;
 			}

@@ -20,10 +20,16 @@ void Render::renderWrapper() {
 
 void Render::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	static int i = 0;
+	glPushMatrix();
+	glRotatef(++i, 1, 0, 0);
 	for (std::list<std::shared_ptr<View>>::iterator it = viewList->begin(); it != viewList->end(); ++it) {
 		it->get()->accept(drawerVisitor);
 	}
-	glutSolidSphere(0.1, 20, 16);
+	//glutSolidSphere(0.5, 20, 16);
+	glPopMatrix();
+	glLoadIdentity();
+	
 	glFlush();  // Render now*/
 	glutSwapBuffers();
 }

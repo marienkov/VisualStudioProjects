@@ -46,7 +46,7 @@ protected:
 	void initNormals();
 	virtual void initIndexes() = 0;
 
-	void computeNormalTriangleIndex(int index);
+	void computeNormalTriangle(int first, int second, int third);
 public:
 	View();
 	View(std::string);

@@ -40,7 +40,7 @@ int initOpenGL(int argc1, char **argv1) {
 	GLfloat mat_specular[] = { 0.3f, 1.0f, 0.0f, 1.0f };
 	GLfloat mat_shininess[] = { 120 };
 	GLfloat light_ambient[] = { 0.5, 0.0, 0.0, 1.0 };
-	GLfloat light_position[] = { 0.4, 0.4, 10.0, 0.0 };
+	GLfloat light_position[] = { 0.4, 0.4, 10.0, -1.0 };
 	GLfloat white_light[] = { 1, 1, 1, 1 };
 
 	glEnable(GL_COLOR_MATERIAL);

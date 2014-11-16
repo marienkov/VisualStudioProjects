@@ -26,32 +26,72 @@ void View::setColor(float r, float g, float b, float alpha) {
 		(pVertexColor + i)->color[3] = alpha;
 	}
 }
+
 //Check size of normal and position
-void View::computeNormalTriangleIndex(int index) {
-		//Next vector
-		float lnx = (pVertexPosition + *(pVertexIndex + 1))->position[0] - (pVertexPosition + *(pVertexIndex))->position[0];
-		float lny = (pVertexPosition + *(pVertexIndex + 1))->position[1] - (pVertexPosition + *(pVertexIndex))->position[1];
-		float lnz = (pVertexPosition + *(pVertexIndex + 1))->position[2] - (pVertexPosition + *(pVertexIndex))->position[2];
+//Calculation for one vertex could be applied for another????
+// 1<--v3--3
+// |      /
+// v1    /
+// |   v2
+// |  /
+// v /
+// 2
+//First vector
+void View::computeNormalTriangle(int first, int second, int third) {
+	float vec1x = (pVertexPosition + *(pVertexIndex + second))->position[0]
+		- (pVertexPosition + *(pVertexIndex + first))->position[0];
+	float vec1y = (pVertexPosition + *(pVertexIndex + second))->position[1]
+		- (pVertexPosition + *(pVertexIndex + first))->position[1];
+	float vec1z = (pVertexPosition + *(pVertexIndex + second))->position[2]
+		- (pVertexPosition + *(pVertexIndex + first))->position[2];
 
-		//Prev vector
-		float lpx = (pVertexPosition + *(pVertexIndex))->position[0] - (pVertexPosition + *(pVertexIndex + 2))->position[0];
-		float lpy = (pVertexPosition + *(pVertexIndex))->position[1] - (pVertexPosition + *(pVertexIndex + 2))->position[1];
-		float lpz = (pVertexPosition + *(pVertexIndex))->position[2] - (pVertexPosition + *(pVertexIndex + 2))->position[2];
+	float vec2x = (pVertexPosition + *(pVertexIndex + third))->position[0]
+		- (pVertexPosition + *(pVertexIndex + second))->position[0];
+	float vec2y = (pVertexPosition + *(pVertexIndex + third))->position[1]
+		- (pVertexPosition + *(pVertexIndex + second))->position[1];
+	float vec2z = (pVertexPosition + *(pVertexIndex + third))->position[2]
+		- (pVertexPosition + *(pVertexIndex + second))->position[2];
 
-		float nx = lpy * lnz - lpz * lny;
-		float ny = lpz * lnx - lpx * lnz;
-		float nz = lpx * lny - lpy * lnx;
+	float vec3x = (pVertexPosition + *(pVertexIndex + first))->position[0]
+		- (pVertexPosition + *(pVertexIndex + third))->position[0];
+	float vec3y = (pVertexPosition + *(pVertexIndex + first))->position[1]
+		- (pVertexPosition + *(pVertexIndex + third))->position[1];
+	float vec3z = (pVertexPosition + *(pVertexIndex + first))->position[2]
+		- (pVertexPosition + *(pVertexIndex + third))->position[2];
 
-		float n_mod = std::sqrt(nx * nx + ny * ny + nz * nz);
+	float nx1 = vec3y * vec1z - vec3z * vec1y + 0.01f;
+	float ny1 = vec3z * vec1x - vec3x * vec1z + 0.01f;
+	float nz1 = vec3x * vec1y - vec3y * vec1x + 0.01f;
 
-		(pVertexNormal + index)->normal[0] = nx / n_mod;
-		(pVertexNormal + index)->normal[1] = ny / n_mod;
-		(pVertexNormal + index)->normal[2] = nz / n_mod;
+	float nx2 = vec1y * vec2z - vec1z * vec2y + 0.01f;;
+	float ny2 = vec1z * vec2x - vec1x * vec2z + 0.01f;;
+	float nz2 = vec1x * vec2y - vec1y * vec2x + 0.01f;;
+
+	float nx3 = vec2y * vec3z - vec2z * vec3y + 0.01f;;
+	float ny3 = vec2z * vec3x - vec2x * vec3z + 0.01f;;
+	float nz3 = vec2x * vec3y - vec2y * vec3x + 0.01f;;
+
+	float n_mod = std::sqrt(nx1 * nx1 + ny1 * ny1 + nz1 * nz1)
+		+ std::sqrt(nx2 * nx2 + ny2 * ny2 + nz2 * nz2)
+		+ std::sqrt(nx3 * nx3 + ny3 * ny3 + nz3 * nz3);
+	n_mod /= 3;
+
+	(pVertexNormal + first)->normal[0] = nx1 / n_mod;
+	(pVertexNormal + first)->normal[1] = ny1 / n_mod;
+	(pVertexNormal + first)->normal[2] = nz1 / n_mod;
+
+	(pVertexNormal + second)->normal[0] = nx2 / n_mod;
+	(pVertexNormal + second)->normal[1] = ny2 / n_mod;
+	(pVertexNormal + second)->normal[2] = nz2 / n_mod;
+
+	(pVertexNormal + third)->normal[0] = nx3 / n_mod;
+	(pVertexNormal + third)->normal[1] = ny3 / n_mod;
+	(pVertexNormal + third)->normal[2] = nz3 / n_mod;
 }
 
 void View::initNormals() {
-	for (int i = 0; i < indexCount; ++i)
-		computeNormalTriangleIndex(i);
+	for (int i = 0; i < indexCount; i += 3)
+		computeNormalTriangle(i, i + 1, i + 2);
 }
 
 float* View::getVertexColors() {
