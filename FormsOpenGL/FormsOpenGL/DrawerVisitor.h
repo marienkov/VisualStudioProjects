@@ -11,9 +11,10 @@ class DrawerVisitor :
 private:
 	static DrawerVisitor* instance;
 
-	GLint DrawerVisitor::Attrib_vertex;
-	GLint DrawerVisitor::Unif_color;
-	GLfloat DrawerVisitor::Unif_MVP;
+	GLint DrawerVisitor::atrPosition;
+	GLint DrawerVisitor::atrNormal;
+	GLint DrawerVisitor::unifColor;
+	GLfloat DrawerVisitor::unifMVP;
 	GLuint DrawerVisitor::Program;
 
 	float angleX;

@@ -7,10 +7,13 @@
 #include "gl\freeglut.h"
 #include "DrawerVisitor.h"
 
+typedef std::shared_ptr<View> sView;
+typedef std::shared_ptr<std::list<sView>> sViewList;
+
 class Controller
 {
 private:
-	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
+	sViewList viewList;
 
 	static float viewRotateX;
 	static float viewRotateY;
@@ -29,7 +32,7 @@ public:
 	Controller();
 	virtual ~Controller();
 
-	void setViewList(std::shared_ptr<std::list<std::shared_ptr<View>>>);
+	void setViewList(sViewList);
 
 	static void mouseAction(int,int,int,int);
 	static void mouseScroll(int, int, int, int);

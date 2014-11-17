@@ -9,6 +9,13 @@
 #include "Rectangle3D.h"
 #include "map"
 
+typedef std::shared_ptr<View> sView;
+typedef std::shared_ptr<Triangle> sTriangle;
+typedef std::shared_ptr<Button> sButton;
+typedef std::shared_ptr<Rectangle3D> sRecnatgle3D;
+
+typedef std::shared_ptr<std::list<sView>> sViewList;
+
 class Parser
 {
 private:
@@ -24,16 +31,16 @@ private:
 	const char VALUE_MARK = '"';
 	const char DEVIDER_MARK = ' ';
 
-	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
-	std::map<std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> supportedViewMap;
+	sViewList viewList;
+	std::map<std::string, sView(Parser::*) (std::ifstream& file, std::string currentLine, int current)> supportedViewMap;
 	
-	std::shared_ptr<View> parseButton(std::ifstream& file, std::string currentLine, int current);
-	std::shared_ptr<View> parseTriangle(std::ifstream& file, std::string currentLine, int current);
-	std::shared_ptr<View> parseRectangle3D(std::ifstream& file, std::string currentLine, int current);
+	sView parseButton(std::ifstream& file, std::string currentLine, int current);
+	sView parseTriangle(std::ifstream& file, std::string currentLine, int current);
+	sView parseRectangle3D(std::ifstream& file, std::string currentLine, int current);
 	void initSupportedViews();
 public:
 	Parser();
 	virtual ~Parser();
-	std::shared_ptr<std::list<std::shared_ptr<View>>> parse(const char* file);
+	sViewList parse(const char* file);
 	void log(std::string message);
 };

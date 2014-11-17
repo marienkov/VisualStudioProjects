@@ -1,6 +1,6 @@
 #include "Parser.h"
 
-Parser::Parser() : viewList(new std::list<std::shared_ptr<View>>())
+Parser::Parser() : viewList(new std::list<sView>())
 {
 	initSupportedViews();
 }
@@ -9,7 +9,7 @@ Parser::~Parser()
 {
 }
 
-std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char* fileName) {
+sViewList Parser::parse(const char* fileName) {
 
 	viewList->clear();
 
@@ -22,16 +22,16 @@ std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char* file
 	std::string currentLine;
 
 	if (file.is_open()) {
-		std::shared_ptr<View>(Parser::*parseFunction) (std::ifstream& file, std::string currentLine, int current);
+		sView(Parser::*parseFunction) (std::ifstream& file, std::string currentLine, int current);
 		while (getline(file, currentLine)) {
-			for (std::map<std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)>::iterator it = supportedViewMap.begin();
+			for (std::map<std::string, sView(Parser::*) (std::ifstream& file, std::string currentLine, int current)>::iterator it = supportedViewMap.begin();
 					it != supportedViewMap.end(); ++it) {
 				size_t tagPosition = currentLine.find(it->first);
 				if (tagPosition != std::string::npos) {
 					parseFunction = it->second;
-					std::shared_ptr<View> sPtr = (this->*parseFunction)(file, currentLine, tagPosition + (*it).first.size());
+					sView sPtr = (this->*parseFunction)(file, currentLine, tagPosition + (*it).first.size());
 					if (sPtr)
-						viewList->push_back(std::shared_ptr<View>(sPtr));
+						viewList->push_back(sView(sPtr));
 
 				}
 			}
@@ -42,11 +42,11 @@ std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char* file
 	return viewList;
 }
 
-std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string currentLine, int current) {
+sView Parser::parseButton(std::ifstream& file, std::string currentLine, int current) {
 	unsigned char validation = 0;
 	unsigned char validationSuccess = 1023;
 	
-	std::shared_ptr<Button> rect = std::shared_ptr<Button>(new Button());
+	sButton rect = sButton(new Button());
 	std::string id;
 	float cAlpha, cRed, cGreen, cBlue, x0, y0, z0, width, height;
 	
@@ -122,11 +122,11 @@ std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string curre
 	return rect;
 }
 
-std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string currentLine, int current) {
+sView Parser::parseTriangle(std::ifstream& file, std::string currentLine, int current) {
 	unsigned char validation = 0;
 	unsigned char validationSuccess = 16383;
 
-	std::shared_ptr<Triangle> trian = std::shared_ptr<Triangle>(new Triangle());
+	sTriangle trian = sTriangle(new Triangle());
 	std::string id;
 	float cAlpha, cRed, cGreen, cBlue, x0, y0, z0, x1, y1, z1, x2, y2, z2;
 
@@ -206,11 +206,11 @@ std::shared_ptr<View> Parser::parseTriangle(std::ifstream& file, std::string cur
 	return trian;
 }
 
-std::shared_ptr<View> Parser::parseRectangle3D(std::ifstream& file, std::string currentLine, int current) {
+sView Parser::parseRectangle3D(std::ifstream& file, std::string currentLine, int current) {
 	unsigned char validation = 0;
 	unsigned char validationSuccess = 2047;
 
-	std::shared_ptr<Rectangle3D> rect3D = std::shared_ptr<Rectangle3D>(new Rectangle3D());
+	sRecnatgle3D rect3D = sRecnatgle3D(new Rectangle3D());
 	std::string id;
 	float cAlpha, cRed, cGreen, cBlue, x0, y0, z0, width, height, lenght;
 
@@ -292,19 +292,19 @@ std::shared_ptr<View> Parser::parseRectangle3D(std::ifstream& file, std::string 
 
 void Parser::initSupportedViews() {
 	//Rectange
-	std::pair <std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair1;
+	std::pair <std::string, sView(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair1;
 	somePair1.first = "<Button>";
 	somePair1.second = &Parser::parseButton;
 	supportedViewMap.insert(somePair1);
 
 	//Triangle
-	std::pair <std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair2;
+	std::pair <std::string, sView(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair2;
 	somePair2.first = "<Triangle>";
 	somePair2.second = &Parser::parseTriangle;
 	supportedViewMap.insert(somePair2);
 
 	//Rectangle3D
-	std::pair <std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair3;
+	std::pair <std::string, sView(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair3;
 	somePair3.first = "<Rectangle3D>";
 	somePair3.second = &Parser::parseRectangle3D;
 	supportedViewMap.insert(somePair3);

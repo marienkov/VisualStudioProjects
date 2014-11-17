@@ -23,7 +23,7 @@ Controller::~Controller()
 {
 }
 
-void Controller::setViewList(std::shared_ptr<std::list<std::shared_ptr<View>>> list) {
+void Controller::setViewList(sViewList list) {
 	viewList = list;
 }
 
@@ -53,19 +53,15 @@ void Controller::keyboardSpecialAction(int key, int x, int y) {
 	switch (key)
 	{
 	case GLUT_KEY_UP:
-		//glRotatef(1, 1, 0, 0);
 		DrawerVisitor::moveY(viewPositionY);
 		break;
 	case GLUT_KEY_DOWN:
-		//glRotatef(-1, 1, 0, 0);
 		DrawerVisitor::moveY(-viewPositionY);
 		break;
 	case GLUT_KEY_RIGHT:
-		//glRotatef(1, 0, 1, 0);
 		DrawerVisitor::moveX(viewPositionX);
 		break;
 	case GLUT_KEY_LEFT:
-		//glRotatef(-1, 0, 1, 0);
 		DrawerVisitor::moveX(-viewPositionX);
 		break;
 	default:

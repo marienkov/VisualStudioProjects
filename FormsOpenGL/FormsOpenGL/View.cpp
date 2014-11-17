@@ -59,17 +59,17 @@ void View::computeNormalTriangle(int first, int second, int third) {
 	float vec3z = (pVertexPosition + *(pVertexIndex + first))->position[2]
 		- (pVertexPosition + *(pVertexIndex + third))->position[2];
 
-	float nx1 = vec3y * vec1z - vec3z * vec1y + 0.01f;
-	float ny1 = vec3z * vec1x - vec3x * vec1z + 0.01f;
-	float nz1 = vec3x * vec1y - vec3y * vec1x + 0.01f;
+	float nx1 = vec3y * vec1z - vec3z * vec1y;
+	float ny1 = vec3z * vec1x - vec3x * vec1z;
+	float nz1 = vec3x * vec1y - vec3y * vec1x;
 
-	float nx2 = vec1y * vec2z - vec1z * vec2y + 0.01f;;
-	float ny2 = vec1z * vec2x - vec1x * vec2z + 0.01f;;
-	float nz2 = vec1x * vec2y - vec1y * vec2x + 0.01f;;
+	float nx2 = vec1y * vec2z - vec1z * vec2y;
+	float ny2 = vec1z * vec2x - vec1x * vec2z;
+	float nz2 = vec1x * vec2y - vec1y * vec2x;
 
-	float nx3 = vec2y * vec3z - vec2z * vec3y + 0.01f;;
-	float ny3 = vec2z * vec3x - vec2x * vec3z + 0.01f;;
-	float nz3 = vec2x * vec3y - vec2y * vec3x + 0.01f;;
+	float nx3 = vec2y * vec3z - vec2z * vec3y;
+	float ny3 = vec2z * vec3x - vec2x * vec3z;
+	float nz3 = vec2x * vec3y - vec2y * vec3x;
 
 	float n_mod = std::sqrt(nx1 * nx1 + ny1 * ny1 + nz1 * nz1)
 		+ std::sqrt(nx2 * nx2 + ny2 * ny2 + nz2 * nz2)

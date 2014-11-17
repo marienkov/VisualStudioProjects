@@ -1,7 +1,7 @@
 <Form>
 
   //X
-  Button>
+  <Button>
     id = "x"
     x0 = "-1.0"
     y0 = "-0.01"
@@ -16,7 +16,7 @@
 
   
   //Y
-  Button>
+  <Button>
     id = "y"
     x0 = "-0.01"
     y0 = "1"
@@ -29,15 +29,15 @@
     cBlue = "1"
   </Button>
 
-  <Beutton>
+  <Button>
     id  =  "rect2"    x0  =  "-0.5"    y0="0.5" z0="0.1"   width="1"    height="1"
     cAlpha="1"
-    cRed="1"
-    cGreen="0"
-    cBlue="0"
+    cRed="0"
+    cGreen="0.2"
+    cBlue="0.2"
   </Button>
 
-  <Btton>
+  <Button>
     id  =  "rect2"    x0  =  "-0.8"    y0="0.5" z0="0.5"   width="0.6"    height="1"
     cAlpha="1"
     cRed="0"
@@ -45,7 +45,7 @@
     cBlue="0"
   </Button>
 
-  <riangle>
+  <Triangle>
     id  =  "trian1"
     x0  =  "-0.7"
     y0="-0.7"
@@ -66,7 +66,7 @@
     id = "rec3d"
     x0 = "-0.25"
     y0 = "0.25"
-    z0 = "+0.25"
+    z0 = "0.25"
     width = "0.5"
     height = "0.5"
     lenght = "0.5"

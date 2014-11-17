@@ -8,18 +8,21 @@
 #include "gl\glew.h"
 #include "gl\freeglut.h"
 
+typedef std::shared_ptr<View> sView;
+typedef std::shared_ptr<std::list<sView>> sViewList;
+
 class Render
 {
 public:
 	Render();
 	~Render();
 
-	void setViewList(std::shared_ptr<std::list<std::shared_ptr<View>>>& viewList);
+	void setViewList(sViewList& viewList);
 	static void renderWrapper();
 private:
 	static Render* instance;
 	DrawerVisitor drawerVisitor;
-	std::shared_ptr<std::list<std::shared_ptr<View>>> viewList;
+	sViewList viewList;
 
 	void render();
 };

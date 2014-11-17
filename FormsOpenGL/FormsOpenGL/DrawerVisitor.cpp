@@ -2,7 +2,7 @@
 
 DrawerVisitor* DrawerVisitor::instance = nullptr;
 
-DrawerVisitor::DrawerVisitor() : Attrib_vertex(0), Unif_color(0), Program(0), scaleFactor(1), angleX(0), angleY(0), angleZ(0)
+DrawerVisitor::DrawerVisitor() : atrPosition(0), unifColor(1), atrNormal(3), unifMVP(0), Program(0), scaleFactor(1), angleX(0), angleY(0), angleZ(0)
 {
 	initShader();
 	instance = this;
@@ -14,126 +14,146 @@ DrawerVisitor::~DrawerVisitor()
 }
 
 void DrawerVisitor::visit(Button* view) {
-	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
+	glUseProgram(Program);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
+	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
 	glGenBuffers(1, &vId);
 	glBindBuffer(GL_ARRAY_BUFFER, vId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
-	glVertexPointer(3, GL_FLOAT, 0, 0);
-
-	glGenBuffers(1, &cId);
-	glBindBuffer(GL_ARRAY_BUFFER, cId);
-	glBufferData(GL_ARRAY_BUFFER, view->getVertexColorSize(), view->getVertexColors(), GL_STATIC_DRAW);
-	glColorPointer(4, GL_FLOAT, 0, 0);
+	glEnableVertexAttribArray(atrPosition);
+	glVertexAttribPointer(atrPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &nId);
 	glBindBuffer(GL_ARRAY_BUFFER, nId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
-	glNormalPointer(GL_FLOAT, 0, 0);
+	glEnableVertexAttribArray(atrNormal);
+	glVertexAttribPointer(atrNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &iId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
+	glUniform4fv(unifColor, 1, view->getVertexColors());
+
+	glDrawElements(GL_TRIANGLES, view->getVertexIndexLenght(), GL_UNSIGNED_INT, 0);
+
+	glDisableVertexAttribArray(atrPosition);
+	glDisableVertexAttribArray(atrNormal);
+
 	glDeleteBuffers(1, &vId);
-	glDeleteBuffers(1, &cId);
+	glDeleteBuffers(1, &nId);
 	glDeleteBuffers(1, &iId);
+
+	glUseProgram(0);
 }
 
 void DrawerVisitor::visit(Triangle* view) {
-	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
+	glUseProgram(Program);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
+	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
 	glGenBuffers(1, &vId);
 	glBindBuffer(GL_ARRAY_BUFFER, vId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
-	glVertexPointer(3, GL_FLOAT, 0, 0);
-
-	glGenBuffers(1, &cId);
-	glBindBuffer(GL_ARRAY_BUFFER, cId);
-	glBufferData(GL_ARRAY_BUFFER, view->getVertexColorSize(), view->getVertexColors(), GL_STATIC_DRAW);
-	glColorPointer(4, GL_FLOAT, 0, 0);
+	glEnableVertexAttribArray(atrPosition);
+	glVertexAttribPointer(atrPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &nId);
 	glBindBuffer(GL_ARRAY_BUFFER, nId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
-	glNormalPointer(GL_FLOAT, 0, 0);
+	glEnableVertexAttribArray(atrNormal);
+	glVertexAttribPointer(atrNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &iId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
+	glUniform4fv(unifColor, 1, view->getVertexColors());
+
+	glDrawElements(GL_TRIANGLES, view->getVertexIndexLenght(), GL_UNSIGNED_INT, 0);
+
+	glDisableVertexAttribArray(atrPosition);
+	glDisableVertexAttribArray(atrNormal);
+
 	glDeleteBuffers(1, &vId);
-	glDeleteBuffers(1, &cId);
+	glDeleteBuffers(1, &nId);
 	glDeleteBuffers(1, &iId);
+
+	glUseProgram(0);
 }
 
 void DrawerVisitor::visit(Rectangle3D* view) {
-	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
+	glUseProgram(Program);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
+	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
 	glGenBuffers(1, &vId);
 	glBindBuffer(GL_ARRAY_BUFFER, vId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
-	glVertexPointer(3, GL_FLOAT, 0, 0);
-
-	glGenBuffers(1, &cId);
-	glBindBuffer(GL_ARRAY_BUFFER, cId);
-	glBufferData(GL_ARRAY_BUFFER, view->getVertexColorSize(), view->getVertexColors(), GL_STATIC_DRAW);
-	glColorPointer(4, GL_FLOAT, 0, 0);
+	glEnableVertexAttribArray(atrPosition);
+	glVertexAttribPointer(atrPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &nId);
 	glBindBuffer(GL_ARRAY_BUFFER, nId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
-	glNormalPointer(GL_FLOAT, 0, 0);
+	glEnableVertexAttribArray(atrNormal);
+	glVertexAttribPointer(atrNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &iId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
 
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
+	glUniform4fv(unifColor, 1, view->getVertexColors());
+
+	glDrawElements(GL_TRIANGLES, view->getVertexIndexLenght(), GL_UNSIGNED_INT, 0);
+
+	glDisableVertexAttribArray(atrPosition);
+	glDisableVertexAttribArray(atrNormal);
+
 	glDeleteBuffers(1, &vId);
-	glDeleteBuffers(1, &cId);
+	glDeleteBuffers(1, &nId);
 	glDeleteBuffers(1, &iId);
+
+	glUseProgram(0);
 }
 
 void DrawerVisitor::initShader()
 {
 	const char* vsSource =
 		"attribute vec3 coord;\n"
+		"attribute vec3 norm;\n"
 		"uniform mat4 MVP;\n"
+		"varying vec3 N;\n"
+		"varying vec3 v;\n"
 		"void main() {\n"
-		"  gl_Position = vec4(coord, 1.0);\n"
+		"  gl_Position = MVP * vec4(coord, 1.0);\n"
+		"  N = vec3(MVP * vec4(norm, 1.0));\n"
+		"  v = coord;"
 		"}\n";
 	const char* fsSource =
 		"uniform vec4 color;\n"
+		"varying vec3 N;"
+		"varying vec3 v;"
 		"void main() {\n"
-		"  gl_FragColor = color;\n"
+		"  vec3 L = normalize(gl_LightSource[0].position.xyz - v);"
+		"  vec4 Idiff = gl_FrontLightProduct[0].diffuse * max(dot(N, L), 0.0);"
+		"  Idiff = clamp(Idiff, 0.0, 1.0);"
+		"  gl_FragColor = color + Idiff;\n"
 		"}\n";
+
 	GLuint vShader, fShader;
 
 	vShader = glCreateShader(GL_VERTEX_SHADER);
@@ -147,6 +167,16 @@ void DrawerVisitor::initShader()
 	shaderLog(fShader);
 
 	Program = glCreateProgram();
+
+	const char* attr_name = "coord";
+	glBindAttribLocation(Program, atrPosition, attr_name);
+
+	attr_name = "norm";
+	glBindAttribLocation(Program, atrNormal, attr_name);
+
+	const char* unif_name = "color";
+	glBindAttribLocation(Program, unifColor, unif_name);
+
 	glAttachShader(Program, vShader);
 	glAttachShader(Program, fShader);
 	glLinkProgram(Program);
@@ -158,23 +188,9 @@ void DrawerVisitor::initShader()
 		return;
 	}
 
-	const char* attr_name = "coord";
-	Attrib_vertex = glGetAttribLocation(Program, attr_name);
-	if (Attrib_vertex == -1) {
-		std::cout << "could not bind attrib " << attr_name << std::endl;
-		return;
-	}
-
-	const char* unif_name = "color";
-	Unif_color = glGetUniformLocation(Program, unif_name);
-	if (Unif_color == -1) {
-		std::cout << "could not bind uniform " << unif_name << std::endl;
-		return;
-	}
-
 	const char* MVP_name = "MVP";
-	Unif_MVP = glGetUniformLocation(Program, MVP_name);
-	if (Unif_MVP == -1) {
+	unifMVP = glGetUniformLocation(Program, MVP_name);
+	if (unifMVP == -1) {
 		std::cout << "could not bind uniform " << MVP_name << std::endl;
 		return;
 	}
