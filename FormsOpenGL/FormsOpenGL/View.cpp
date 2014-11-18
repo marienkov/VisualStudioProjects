@@ -142,6 +142,32 @@ int View::getVertexIndexLenght(){
 	return indexCount;
 }
 
+float* View::getModelMatrixData() {
+	modelMatrix = Matrix();
+	modelMatrix.scale(scaleX, scaleY, scaleZ);
+	modelMatrix.rotate(angleX, angleY, angleZ);
+	modelMatrix.translate(dx,dy,dz);
+	return modelMatrix.getData();
+}
+
+void View::move(float x = 0, float y = 0, float z = 0) {
+	dx += x;
+	dy += y;
+	dz += z;
+}
+
+void View::rotate(float angX = 0, float angY = 0, float angZ = 0) {
+	angleX += angX;
+	angleY += angY;
+	angleZ += angZ;
+}
+
+void View::scale(float sx = 0, float sy = 0, float sz = 0) {
+	scaleX *= sx;
+	scaleY *= sy;
+	scaleZ *= sz;
+}
+
 void View::updateVertexPosition(int vertex, VertexPosition position) {
 	(pVertexPosition + vertex)->position[0] = position.position[0];
 	(pVertexPosition + vertex)->position[1] = position.position[1];

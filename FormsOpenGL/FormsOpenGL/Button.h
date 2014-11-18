@@ -24,5 +24,5 @@ public:
 	void setCoordinates(VertexPosition v1, VertexPosition v2,
 		VertexPosition v3, VertexPosition v4);
 	
-	void accept(Visitor&);
+	void accept(Visitor&) ;
 };

@@ -2,7 +2,7 @@
 
 DrawerVisitor* DrawerVisitor::instance = nullptr;
 
-DrawerVisitor::DrawerVisitor() : atrPosition(0), unifColor(1), atrNormal(3), unifMVP(0), Program(0), scaleFactor(1), angleX(0), angleY(0), angleZ(0)
+DrawerVisitor::DrawerVisitor() : atrPosition(0), unifColor(1), atrNormal(3), unifMVP(0), Program(0)
 {
 	initShader();
 	instance = this;
@@ -36,7 +36,7 @@ void DrawerVisitor::visit(Button* view) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
 
-	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
+	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, view->getModelMatrixData());
 
 	glUniform4fv(unifColor, 1, view->getVertexColors());
 
@@ -75,7 +75,7 @@ void DrawerVisitor::visit(Triangle* view) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
 
-	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
+	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, view->getModelMatrixData());
 
 	glUniform4fv(unifColor, 1, view->getVertexColors());
 
@@ -114,7 +114,7 @@ void DrawerVisitor::visit(Rectangle3D* view) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
 
-	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, MVP.getMVPTransform4()->getDataPointer());
+	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, view->getModelMatrixData());
 
 	glUniform4fv(unifColor, 1, view->getVertexColors());
 
@@ -227,60 +227,4 @@ void DrawerVisitor::freeShader()
 {
 	glDeleteProgram(Program);
 	glUseProgram(0);
-}
-
-void DrawerVisitor::moveX(float dx) {
-	Matrix<float> transf = Matrix<float>(
-		new float[16]{ 1, 0, 0, dx,
-					   0, 1, 0, 0,
-		   			   0, 0, 1, 0,
-					   0, 0, 0, 1, }, 4, 4);
-	instance->MVP.getModelTranslate4()->multiply(&transf);
-}
-
-void DrawerVisitor::moveY(float dy) {
-	Matrix<float> transf = Matrix<float>(
-		new float[16]{ 1, 0, 0, 0,
-					   0, 1, 0, dy,
-					   0, 0, 1, 0,
-					   0, 0, 0, 1, }, 4, 4);
-	instance->MVP.getModelTranslate4()->multiply(&transf);
-}
-
-void DrawerVisitor::scale(float s) {
-	instance->scaleFactor *= s;
-	float *scale = new float[16]{
-		instance->scaleFactor, 0, 0, 0,
-		0, instance->scaleFactor, 0, 0,
-		0, 0, instance->scaleFactor, 0, 
-		0, 0, 0, 1, };
-	instance->MVP.getModelScaling4()->reset(scale, 4, 4);
-	glutPostRedisplay();
-}
-
-void DrawerVisitor::rotateModel(float dAngleX, float dAngleY, float dAngleZ) {
-	instance->angleX += dAngleX;
-	instance->angleY += dAngleY;
-	instance->angleZ += dAngleZ;
-
-	Matrix<float> rotateX = Matrix<float>(
-		new float[16]{
-		1, 0,					   0,                     0,
-		0, cos(instance->angleX), -sin(instance->angleX), 0,
-		0, sin(instance->angleX),  cos(instance->angleX), 0,
-		0, 0,					   0,                     1 },4, 4);
-	Matrix<float> rotateY = Matrix<float>(
-		new float[16]{
-		cos(instance->angleY), 0, sin(instance->angleY), 0,
-		0,					   1, 0,			         0,
-		-sin(instance->angleY),0, cos(instance->angleY), 0,
-		0,					   0, 0,					 1 }, 4, 4);
-	Matrix<float> rotateZ = Matrix<float>(
-		new float[16]{
-		cos(instance->angleZ), -sin(instance->angleZ), 0, 0,
-		sin(instance->angleZ), cos(instance->angleZ),  0, 0,
-		0,					   0,				       1, 0,
-		0,					   0,                      0, 1 }, 4, 4);
-		instance->MVP.getModelRotating4()->loadIdentityMatrix();
-		instance->MVP.getModelRotating4()->multiply(rotateX)->multiply(rotateY)->multiply(rotateZ);
 }

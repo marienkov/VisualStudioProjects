@@ -19,9 +19,6 @@ typedef std::shared_ptr<std::list<sView>> sViewList;
 class Parser
 {
 private:
-	const bool debugMode = false;
-	const std::string TAG = "Parser:   ";
-
 	const char OPEN_START_TAG = '\<';
 	const char CLOSE_START_TAG = '\>';
 	const char* OPEN_END_TAG = "\<\/";
@@ -42,5 +39,4 @@ public:
 	Parser();
 	virtual ~Parser();
 	sViewList parse(const char* file);
-	void log(std::string message);
 };
