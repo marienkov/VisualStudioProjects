@@ -4,7 +4,6 @@ DrawerVisitor* DrawerVisitor::instance = nullptr;
 
 DrawerVisitor::DrawerVisitor() : atrPosition(0), unifColor(1), atrNormal(3), unifMVP(0), program(0)
 {
-	initShader();
 	instance = this;
 }
 
