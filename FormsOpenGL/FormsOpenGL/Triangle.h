@@ -10,10 +10,12 @@ class Triangle :
 	public View
 {
 private:
-	VertexColor vertexColor[3];
-	VertexNormal vertexNormal[3];
-	VertexPosition vertexPosition[3];
-	int index[3];
+	static const int VERTEX_COUNT = 3;
+	static const int INDEX_COUNT = 3;
+
+	VertexNormal vertexNormal[INDEX_COUNT];
+	VertexPosition vertexPosition[VERTEX_COUNT];
+	int index[INDEX_COUNT];
 
 	void initIndexes();
 public:

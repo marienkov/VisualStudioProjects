@@ -2,12 +2,10 @@
 #include "Visitor.h"
 
 
-View::View()
-{
-}
 
-View::View(std::string name) : id(name)
-{
+View::View(std::string id = "")
+	: vertexCount(0), indexCount(0), dx(0), dy(0), dz(0),
+	angleX(0), angleY(0), angleZ(0), scaleX(1.0f), scaleY(1.0f), scaleZ(1.0f) {
 }
 
 View::~View()
@@ -19,12 +17,10 @@ void View::setId(std::string id) {
 }
 
 void View::setColor(float r, float g, float b, float alpha) {
-	for (int i = 0; i < colorCount; ++i) {
-		(pVertexColor + i)->color[0] = r;
-		(pVertexColor + i)->color[1] = g;
-		(pVertexColor + i)->color[2] = b;
-		(pVertexColor + i)->color[3] = alpha;
-	}
+	vertexColor.color[0] = r;
+	vertexColor.color[1] = g;
+	vertexColor.color[2] = b;
+	vertexColor.color[3] = alpha;
 }
 
 //Check size of normal and position
@@ -95,15 +91,11 @@ void View::initNormals() {
 }
 
 float* View::getVertexColors() {
-	return (float*)pVertexColor;
+	return (float*)(&vertexColor);
 }
 
 int View::getVertexColorSize(){
-	return sizeof(*pVertexColor) * colorCount;
-}
-
-int View::getVertexColorLenght(){
-	return colorCount;
+	return sizeof(vertexColor);
 }
 
 float* View::getVertexNormals() {
@@ -111,11 +103,11 @@ float* View::getVertexNormals() {
 }
 
 int View::getVertexNoramlsSize(){
-	return sizeof(*pVertexNormal) * normalCount;
+	return sizeof(*pVertexNormal) * indexCount;
 }
 
 int View::getVertexNormalsLenght(){
-	return normalCount;
+	return indexCount;
 }
 
 float* View::getVertexPosition() {
@@ -172,13 +164,6 @@ void View::updateVertexPosition(int vertex, VertexPosition position) {
 	(pVertexPosition + vertex)->position[0] = position.position[0];
 	(pVertexPosition + vertex)->position[1] = position.position[1];
 	(pVertexPosition + vertex)->position[2] = position.position[2];
-}
-
-void View::updateVertexColor(int vertex, VertexColor color) {
-	(pVertexColor + vertex)->color[0] = color.color[0];
-	(pVertexColor + vertex)->color[1] = color.color[1];
-	(pVertexColor + vertex)->color[2] = color.color[2];
-	(pVertexColor + vertex)->color[3] = color.color[3];
 }
 
 View::VertexColor::VertexColor() {

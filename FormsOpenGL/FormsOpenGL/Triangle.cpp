@@ -2,31 +2,25 @@
 #include "Visitor.h"
 
 Triangle::Triangle()
-{
-	pVertexColor = vertexColor;
+	: View("") {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
 
-	colorCount = 3;
-	normalCount = 3;
-	vertexCount = 3;
-	indexCount = 3;
+	vertexCount = VERTEX_COUNT;
+	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }
 
 Triangle::Triangle(std::string name)
 	: View(name) {
-	pVertexColor = vertexColor;
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
 
-	colorCount = 3;
-	normalCount = 3;
-	vertexCount = 3;
-	indexCount = 3;
+	vertexCount = VERTEX_COUNT;
+	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }

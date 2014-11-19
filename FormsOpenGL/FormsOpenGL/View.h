@@ -33,17 +33,15 @@ public:
 protected:
 	std::string id;
 
-	int colorCount = 0;
-	int normalCount = 0;
-	int vertexCount = 0;
-	int indexCount = 0;
+	int vertexCount;
+	int indexCount;
 
-	float dx = 0, dy = 0, dz = 0, angleX = 0, angleY = 0, angleZ = 0, scaleX = 1.0f, scaleY = 1.0f, scaleZ = 1.0f;
+	float dx, dy, dz, angleX, angleY, angleZ, scaleX, scaleY, scaleZ;
 
-	VertexColor* pVertexColor = nullptr;
-	VertexNormal* pVertexNormal = nullptr;
-	VertexPosition* pVertexPosition = nullptr;
-	int* pVertexIndex = nullptr;
+	VertexColor vertexColor;
+	VertexNormal* pVertexNormal;
+	VertexPosition* pVertexPosition;
+	int* pVertexIndex;
 
 	Matrix modelMatrix;
 
@@ -52,8 +50,8 @@ protected:
 
 	void computeNormalTriangle(int first, int second, int third);
 public:
-	View();
-	View(std::string);
+	View(std::string id);
+
 	virtual ~View();
 	void setId(std::string);
 	void setColor(float r, float g, float b, float alpha);
@@ -81,7 +79,6 @@ public:
 	void scale(float sx, float sy, float sz);
 
 	void updateVertexPosition(int vertex, VertexPosition position);
-	void updateVertexColor(int vertex, VertexColor color);
 
 	virtual void accept(Visitor&) = 0;
 };

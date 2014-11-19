@@ -10,10 +10,12 @@ class Button :
 	public View
 {
 private:
-	VertexColor vertexColor[4];
-	VertexNormal vertexNormal[6];
-	VertexPosition vertexPosition[4];
-	int index[6];
+	static const int VERTEX_COUNT = 4;
+	static const int INDEX_COUNT = 6;
+
+	VertexNormal vertexNormal[INDEX_COUNT];
+	VertexPosition vertexPosition[VERTEX_COUNT];
+	int index[INDEX_COUNT];
 
 	void initIndexes();
 public:

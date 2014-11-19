@@ -2,16 +2,14 @@
 #include "Visitor.h"
 
 Button::Button()
+	: View("")
 {
-	pVertexColor = vertexColor;
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
 
-	colorCount = 4;
-	normalCount = 6;
-	vertexCount = 4;
-	indexCount = 6;
+	vertexCount = VERTEX_COUNT;
+	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }
@@ -19,15 +17,12 @@ Button::Button()
 Button::Button(std::string name)
 	: View(name)
 {
-	pVertexColor = vertexColor;
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
 
-	colorCount = 4;
-	normalCount = 6;
-	vertexCount = 4;
-	indexCount = 6;
+	vertexCount = VERTEX_COUNT;
+	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }
