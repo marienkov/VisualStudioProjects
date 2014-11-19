@@ -2,7 +2,7 @@
 
 DrawerVisitor* DrawerVisitor::instance = nullptr;
 
-DrawerVisitor::DrawerVisitor() : atrPosition(0), unifColor(1), atrNormal(3), unifMVP(0), Program(0)
+DrawerVisitor::DrawerVisitor() : atrPosition(0), unifColor(1), atrNormal(3), unifMVP(0), program(0)
 {
 	initShader();
 	instance = this;
@@ -14,8 +14,6 @@ DrawerVisitor::~DrawerVisitor()
 }
 
 void DrawerVisitor::visit(Button* view) {
-	glUseProgram(Program);
-
 	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
 	glGenBuffers(1, &vId);
@@ -48,13 +46,9 @@ void DrawerVisitor::visit(Button* view) {
 	glDeleteBuffers(1, &vId);
 	glDeleteBuffers(1, &nId);
 	glDeleteBuffers(1, &iId);
-
-	glUseProgram(0);
 }
 
 void DrawerVisitor::visit(Triangle* view) {
-	glUseProgram(Program);
-
 	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
 	glGenBuffers(1, &vId);
@@ -87,13 +81,9 @@ void DrawerVisitor::visit(Triangle* view) {
 	glDeleteBuffers(1, &vId);
 	glDeleteBuffers(1, &nId);
 	glDeleteBuffers(1, &iId);
-
-	glUseProgram(0);
 }
 
 void DrawerVisitor::visit(Rectangle3D* view) {
-	glUseProgram(Program);
-
 	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 
 	glGenBuffers(1, &vId);
@@ -126,8 +116,6 @@ void DrawerVisitor::visit(Rectangle3D* view) {
 	glDeleteBuffers(1, &vId);
 	glDeleteBuffers(1, &nId);
 	glDeleteBuffers(1, &iId);
-
-	glUseProgram(0);
 }
 
 void DrawerVisitor::initShader()
@@ -166,36 +154,33 @@ void DrawerVisitor::initShader()
 	glCompileShader(fShader);
 	shaderLog(fShader);
 
-	Program = glCreateProgram();
+	program = glCreateProgram();
 
 	const char* attr_name = "coord";
-	glBindAttribLocation(Program, atrPosition, attr_name);
+	glBindAttribLocation(program, atrPosition, attr_name);
 
 	attr_name = "norm";
-	glBindAttribLocation(Program, atrNormal, attr_name);
+	glBindAttribLocation(program, atrNormal, attr_name);
 
-	const char* unif_name = "color";
-	glBindAttribLocation(Program, unifColor, unif_name);
+	attr_name = "color";
+	glBindAttribLocation(program, unifColor, attr_name);
 
-	glAttachShader(Program, vShader);
-	glAttachShader(Program, fShader);
-	glLinkProgram(Program);
+	glAttachShader(program, vShader);
+	glAttachShader(program, fShader);
+	glLinkProgram(program);
 
 	int link_ok;
-	glGetProgramiv(Program, GL_LINK_STATUS, &link_ok);
+	glGetProgramiv(program, GL_LINK_STATUS, &link_ok);
 	if (!link_ok) {
 		std::cout << "error attach shaders \n";
 		return;
 	}
 
-	const char* MVP_name = "MVP";
-	unifMVP = glGetUniformLocation(Program, MVP_name);
-	if (unifMVP == -1) {
-		std::cout << "could not bind uniform " << MVP_name << std::endl;
-		return;
-	}
+	attr_name = "MVP";
+	unifMVP = glGetUniformLocation(program, attr_name);
 
 	checkOpenGLerror();
+	glUseProgram(program);
 }
 
 void DrawerVisitor::checkOpenGLerror() {
@@ -225,6 +210,6 @@ void DrawerVisitor::shaderLog(unsigned int shader) {
 
 void DrawerVisitor::freeShader()
 {
-	glDeleteProgram(Program);
 	glUseProgram(0);
+	glDeleteProgram(program);
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include <cmath>
 #include "Visitor.h"
 #include "gl\glew.h"
 #include "gl\freeglut.h"
@@ -14,7 +13,7 @@ private:
 	GLint DrawerVisitor::atrNormal;
 	GLint DrawerVisitor::unifColor;
 	GLfloat DrawerVisitor::unifMVP;
-	GLuint DrawerVisitor::Program;
+	GLuint DrawerVisitor::program;
 public:
 	DrawerVisitor();
 	virtual ~DrawerVisitor();

@@ -25,8 +25,7 @@ Triangle::Triangle(std::string name)
 	initIndexes();
 }
 
-Triangle::~Triangle()
-{
+Triangle::~Triangle() {
 }
 
 void Triangle::initIndexes() {

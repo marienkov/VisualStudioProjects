@@ -8,8 +8,7 @@ View::View(std::string id = "")
 	angleX(0), angleY(0), angleZ(0), scaleX(1.0f), scaleY(1.0f), scaleZ(1.0f) {
 }
 
-View::~View()
-{
+View::~View() {
 }
 
 void View::setId(std::string id) {

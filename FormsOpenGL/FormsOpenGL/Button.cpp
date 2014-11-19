@@ -1,9 +1,8 @@
 #include "Button.h"
 #include "Visitor.h"
 
-Button::Button()
-	: View("")
-{
+Button::Button() 
+	: View("") {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
@@ -15,8 +14,7 @@ Button::Button()
 }
 
 Button::Button(std::string name)
-	: View(name)
-{
+	: View(name) {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
@@ -27,8 +25,7 @@ Button::Button(std::string name)
 	initIndexes();
 }
 
-Button::~Button()
-{
+Button::~Button() {
 }
 
 void Button::initIndexes() {
