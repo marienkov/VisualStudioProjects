@@ -74,6 +74,8 @@ public:
 
 	float* getModelMatrixData();
 
+	std::string getId();
+
 	void move(float x, float y, float z);
 	void rotate(float angX, float angY, float angZ);
 	void scale(float sx, float sy, float sz);

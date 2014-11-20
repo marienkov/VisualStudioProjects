@@ -9,7 +9,7 @@ Matrix::Matrix() {
 				data[i*DIMENSION + j] = 0;
 }
 
-Matrix::Matrix(float newData[DIMENSION*DIMENSION]) {
+Matrix::Matrix(const float newData[DIMENSION*DIMENSION]) {
 	for (int i = 0; i < DIMENSION; ++i)
 		for (int j = 0; j < DIMENSION; ++j)
 			data[i*DIMENSION + j] = newData[i*DIMENSION + j];
@@ -87,9 +87,9 @@ void Matrix::rotate(float angleX = 0, float angleY = 0, float angleZ = 0) {
 }
 
 void Matrix::scale(float sX = 0, float sY = 0, float sZ = 0) {
-	data[0] *= sX;
-	data[DIMENSION + 1] *= sY;
-	data[2 * DIMENSION + 2] *= sZ;
+	data[0] = sX;
+	data[DIMENSION + 1] = sY;
+	data[2 * DIMENSION + 2] = sZ;
 }
 
 float* Matrix::getData() const {

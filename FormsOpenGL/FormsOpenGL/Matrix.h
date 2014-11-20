@@ -7,7 +7,7 @@ public:
 	const static int DIMENSION = 4;
 
 	Matrix();
-	Matrix(float newData[DIMENSION*DIMENSION]);
+	Matrix(const float newData[DIMENSION*DIMENSION]);
 	Matrix(const Matrix& copyMatrix);
 	virtual ~Matrix();
 

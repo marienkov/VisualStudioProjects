@@ -4,7 +4,7 @@
 
 
 View::View(std::string id = "")
-	: vertexCount(0), indexCount(0), dx(0), dy(0), dz(0),
+	: id(id), vertexCount(0), indexCount(0), dx(0), dy(0), dz(0),
 	angleX(0), angleY(0), angleZ(0), scaleX(1.0f), scaleY(1.0f), scaleZ(1.0f) {
 }
 
@@ -139,6 +139,10 @@ float* View::getModelMatrixData() {
 	modelMatrix.rotate(angleX, angleY, angleZ);
 	modelMatrix.translate(dx,dy,dz);
 	return modelMatrix.getData();
+}
+
+std::string View::getId() {
+	return id;
 }
 
 void View::move(float x = 0, float y = 0, float z = 0) {
