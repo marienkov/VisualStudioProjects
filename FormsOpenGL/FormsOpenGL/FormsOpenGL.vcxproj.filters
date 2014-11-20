@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="View.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
@@ -48,11 +45,6 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="Form.xml">
-      <Filter>Файлы ресурсов</Filter>
-    </Xml>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="View.h">

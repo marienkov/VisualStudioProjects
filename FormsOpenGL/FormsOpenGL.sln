@@ -5,7 +5,12 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FormsOpenGL", "FormsOpenGL\FormsOpenGL.vcxproj", "{CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTestFormsOpenGL", "..\UnitTestFormsOpenGL\UnitTestFormsOpenGL\UnitTestFormsOpenGL.vcxproj", "{4B507EB5-928A-431B-A321-12901AB749C4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{AA33728D-7328-4A3A-9568-E42EF9BD069A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4} = {CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Executor", "Executor\Executor.vcxproj", "{535B36EB-6283-49A7-BB14-C124139D77A8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4} = {CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4}
 	EndProjectSection
@@ -20,10 +25,14 @@ Global
 		{CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4}.Debug|Win32.Build.0 = Debug|Win32
 		{CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4}.Release|Win32.ActiveCfg = Release|Win32
 		{CE3D5E75-D86D-49C4-9AD1-F36D14AF04D4}.Release|Win32.Build.0 = Release|Win32
-		{4B507EB5-928A-431B-A321-12901AB749C4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4B507EB5-928A-431B-A321-12901AB749C4}.Debug|Win32.Build.0 = Debug|Win32
-		{4B507EB5-928A-431B-A321-12901AB749C4}.Release|Win32.ActiveCfg = Release|Win32
-		{4B507EB5-928A-431B-A321-12901AB749C4}.Release|Win32.Build.0 = Release|Win32
+		{AA33728D-7328-4A3A-9568-E42EF9BD069A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AA33728D-7328-4A3A-9568-E42EF9BD069A}.Debug|Win32.Build.0 = Debug|Win32
+		{AA33728D-7328-4A3A-9568-E42EF9BD069A}.Release|Win32.ActiveCfg = Release|Win32
+		{AA33728D-7328-4A3A-9568-E42EF9BD069A}.Release|Win32.Build.0 = Release|Win32
+		{535B36EB-6283-49A7-BB14-C124139D77A8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{535B36EB-6283-49A7-BB14-C124139D77A8}.Debug|Win32.Build.0 = Debug|Win32
+		{535B36EB-6283-49A7-BB14-C124139D77A8}.Release|Win32.ActiveCfg = Release|Win32
+		{535B36EB-6283-49A7-BB14-C124139D77A8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
