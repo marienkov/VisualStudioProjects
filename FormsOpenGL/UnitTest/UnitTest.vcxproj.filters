@@ -29,7 +29,7 @@
     <ClCompile Include="MatrixTest.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonTest.cpp">
+    <ClCompile Include="ViewTest.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>

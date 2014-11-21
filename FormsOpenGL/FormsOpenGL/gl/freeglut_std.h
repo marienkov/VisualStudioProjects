@@ -455,8 +455,8 @@ FGAPI void    FGAPIENTRY glutAddSubMenu( const char* label, int subMenu );
 FGAPI void    FGAPIENTRY glutChangeToMenuEntry( int item, const char* label, int value );
 FGAPI void    FGAPIENTRY glutChangeToSubMenu( int item, const char* label, int value );
 FGAPI void    FGAPIENTRY glutRemoveMenuItem( int item );
-FGAPI void    FGAPIENTRY glutAttachMenu( int button );
-FGAPI void    FGAPIENTRY glutDetachMenu( int button );
+FGAPI void    FGAPIENTRY glutAttachMenu( int rectanlge );
+FGAPI void    FGAPIENTRY glutDetachMenu( int rectanlge );
 
 /*
  * Global callback functions, see freeglut_callbacks.c
@@ -487,11 +487,11 @@ FGAPI void    FGAPIENTRY glutWindowStatusFunc( void (* callback)( int ) );
 
 FGAPI void    FGAPIENTRY glutSpaceballMotionFunc( void (* callback)( int, int, int ) );
 FGAPI void    FGAPIENTRY glutSpaceballRotateFunc( void (* callback)( int, int, int ) );
-FGAPI void    FGAPIENTRY glutSpaceballButtonFunc( void (* callback)( int, int ) );
-FGAPI void    FGAPIENTRY glutButtonBoxFunc( void (* callback)( int, int ) );
+FGAPI void    FGAPIENTRY glutSpaceballRectangle2DFunc( void (* callback)( int, int ) );
+FGAPI void    FGAPIENTRY glutRectangle2DBoxFunc( void (* callback)( int, int ) );
 FGAPI void    FGAPIENTRY glutDialsFunc( void (* callback)( int, int ) );
 FGAPI void    FGAPIENTRY glutTabletMotionFunc( void (* callback)( int, int ) );
-FGAPI void    FGAPIENTRY glutTabletButtonFunc( void (* callback)( int, int, int, int ) );
+FGAPI void    FGAPIENTRY glutTabletRectangle2DFunc( void (* callback)( int, int, int, int ) );
 
 /*
  * State setting and retrieval functions, see freeglut_state.c

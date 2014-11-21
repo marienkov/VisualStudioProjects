@@ -29,7 +29,7 @@ private:
 	static float viewZoomIn;
 	static float viewZoomOut;
 
-	static bool mouseLeftButtonPressed;
+	static bool mouseLeftRectangle2DPressed;
 	static int mouseXstart;
 	static int mouseYstart;
 	static int mouseXend;

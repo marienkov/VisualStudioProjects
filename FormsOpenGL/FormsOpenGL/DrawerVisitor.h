@@ -18,7 +18,7 @@ public:
 	DrawerVisitor();
 	virtual ~DrawerVisitor();
 
-	void visit(Button*);
+	void visit(Rectangle2D*);
 	void visit(Triangle*);
 	void visit(Rectangle3D*);
 

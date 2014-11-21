@@ -2,25 +2,19 @@
 #include "Visitor.h"
 
 Triangle::Triangle()
-	: View("") {
+	: View("", POSITION_COUNT, VERTEX_COUNT) {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
-
-	vertexCount = VERTEX_COUNT;
-	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }
 
 Triangle::Triangle(std::string name)
-	: View(name) {
+	: View(name, POSITION_COUNT, VERTEX_COUNT) {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
-
-	vertexCount = VERTEX_COUNT;
-	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }

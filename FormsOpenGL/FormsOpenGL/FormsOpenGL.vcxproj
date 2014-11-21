@@ -73,7 +73,7 @@
     <ClCompile Include="Rectangle3D.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Parser.cpp" />
-    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Rectangle2D.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Visitor.cpp" />
@@ -85,7 +85,7 @@
     <ClInclude Include="Rectangle3D.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Parser.h" />
-    <ClInclude Include="Button.h" />
+    <ClInclude Include="Rectangle2D.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Visitor.h" />

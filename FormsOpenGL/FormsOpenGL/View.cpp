@@ -3,9 +3,9 @@
 
 
 
-View::View(std::string id = "")
-	: id(id), vertexCount(0), indexCount(0), dx(0), dy(0), dz(0),
-	angleX(0), angleY(0), angleZ(0), scaleX(1.0f), scaleY(1.0f), scaleZ(1.0f) {
+View::View(std::string id, int positionCount, int vertexCount)
+	: id(id), POSITION_COUNT(positionCount), VERTEX_COUNT(vertexCount),
+	dx(0), dy(0), dz(0), angleX(0), angleY(0), angleZ(0), scaleX(1.0f), scaleY(1.0f), scaleZ(1.0f) {
 }
 
 View::~View() {
@@ -85,7 +85,7 @@ void View::computeNormalTriangle(int first, int second, int third) {
 }
 
 void View::initNormals() {
-	for (int i = 0; i < indexCount; i += 3)
+	for (int i = 0; i < VERTEX_COUNT; i += 3)
 		computeNormalTriangle(i, i + 1, i + 2);
 }
 
@@ -102,23 +102,23 @@ float* View::getVertexNormals() {
 }
 
 int View::getVertexNoramlsSize(){
-	return sizeof(*pVertexNormal) * indexCount;
+	return sizeof(*pVertexNormal) * VERTEX_COUNT;
 }
 
-int View::getVertexNormalsLenght(){
-	return indexCount;
+int View::getVertexNormalsCount(){
+	return VERTEX_COUNT;
 }
 
-float* View::getVertexPosition() {
+const float* View::getVertexPosition() {
 	return (float*)pVertexPosition;
 }
 
 int View::getVertexPositionSize(){
-	return sizeof(*pVertexPosition) * vertexCount;
+	return sizeof(*pVertexPosition) * POSITION_COUNT;
 }
 
-int View::getVertexPositionLenght(){
-	return vertexCount;
+int View::getVertexPositionCount(){
+	return POSITION_COUNT;
 }
 
 int* View::getVertexIndexes() {
@@ -126,11 +126,11 @@ int* View::getVertexIndexes() {
 }
 
 int View::getVertexIndexSize(){
-	return sizeof(*pVertexIndex) * indexCount;
+	return sizeof(*pVertexIndex) * VERTEX_COUNT;
 }
 
-int View::getVertexIndexLenght(){
-	return indexCount;
+int View::getVertexIndexCount(){
+	return VERTEX_COUNT;
 }
 
 float* View::getModelMatrixData() {

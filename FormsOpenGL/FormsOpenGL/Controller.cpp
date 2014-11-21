@@ -18,7 +18,7 @@ int Controller::mouseYstart = 0;
 int Controller::mouseXend = 0;
 int Controller::mouseYend = 0;
 
-bool Controller::mouseLeftButtonPressed = false;
+bool Controller::mouseLeftRectangle2DPressed = false;
 
 Controller::Controller() {
 	instance = this;
@@ -31,19 +31,19 @@ void Controller::setViewList(sViewList list) {
 	viewList = list;
 }
 
-void Controller::mouseAction(int the_button, int button_state, int x, int y) {
-	if (the_button == GLUT_LEFT_BUTTON && !button_state == GLUT_UP) {
-		mouseLeftButtonPressed = true;
+void Controller::mouseAction(int the_rectanlge, int rectanlge_state, int x, int y) {
+	if (the_rectanlge == GLUT_LEFT_BUTTON && !rectanlge_state == GLUT_UP) {
+		mouseLeftRectangle2DPressed = true;
 	}
 	else
-		mouseLeftButtonPressed = false;
+		mouseLeftRectangle2DPressed = false;
 }
 
 void Controller::mouseMove(int x, int y) {
-	if (mouseLeftButtonPressed) {
+	if (mouseLeftRectangle2DPressed) {
 		mouseXstart = x;
 		mouseYstart = y;
-		mouseLeftButtonPressed = false;
+		mouseLeftRectangle2DPressed = false;
 	}
 	else {
 		for (std::list<sView>::iterator it = instance->viewList->begin(); it != instance->viewList->end(); ++it)
@@ -80,7 +80,7 @@ void Controller::keyboardSpecialAction(int key, int x, int y) {
 	glutPostRedisplay();
 }
 
-void Controller::mouseScroll(int button, int dir, int x, int y) {
+void Controller::mouseScroll(int rectanlge, int dir, int x, int y) {
 	if (dir > 0) {
 		for (std::list<sView>::iterator it = instance->viewList->begin(); it != instance->viewList->end(); ++it)
 			it->get()->scale(viewZoomIn, viewZoomIn, viewZoomIn);

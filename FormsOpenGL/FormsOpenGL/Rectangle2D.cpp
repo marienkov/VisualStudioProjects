@@ -1,34 +1,28 @@
-#include "Button.h"
+#include "Rectangle2D.h"
 #include "Visitor.h"
 
-Button::Button() 
-	: View("") {
+Rectangle2D::Rectangle2D()
+	: View("", POSITION_COUNT, VERTEX_COUNT) {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
 
-	vertexCount = VERTEX_COUNT;
-	indexCount = INDEX_COUNT;
-
 	initIndexes();
 }
 
-Button::Button(std::string name)
-	: View(name) {
+Rectangle2D::Rectangle2D(std::string name)
+	: View(name, POSITION_COUNT, VERTEX_COUNT) {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
 
-	vertexCount = VERTEX_COUNT;
-	indexCount = INDEX_COUNT;
-
 	initIndexes();
 }
 
-Button::~Button() {
+Rectangle2D::~Rectangle2D() {
 }
 
-void Button::initIndexes() {
+void Rectangle2D::initIndexes() {
 	index[0] = 0;
 	index[1] = 1;
 	index[2] = 2;
@@ -37,7 +31,7 @@ void Button::initIndexes() {
 	index[5] = 0;
 }
 
-void Button::setCoordinates(VertexPosition v1, VertexPosition v2, VertexPosition v3, VertexPosition v4) {
+void Rectangle2D::setCoordinates(VertexPosition v1, VertexPosition v2, VertexPosition v3, VertexPosition v4) {
 	updateVertexPosition(0, v1);
 	updateVertexPosition(1, v2);
 	updateVertexPosition(2, v3);
@@ -45,6 +39,6 @@ void Button::setCoordinates(VertexPosition v1, VertexPosition v2, VertexPosition
 	initNormals();
 }
 
-void Button::accept(Visitor& visitor) {
+void Rectangle2D::accept(Visitor& visitor) {
 	visitor.visit(this);
 }

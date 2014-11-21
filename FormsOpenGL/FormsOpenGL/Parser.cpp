@@ -38,8 +38,8 @@ std::shared_ptr<std::list<std::shared_ptr<View>>> Parser::parse(const char* file
 	return viewList;
 }
 
-std::shared_ptr<View> Parser::parseButton(std::ifstream& file, std::string currentLine, int current) {
-	std::shared_ptr<Button> rect = std::shared_ptr<Button>(new Button());
+std::shared_ptr<View> Parser::parseRectangle2D(std::ifstream& file, std::string currentLine, int current) {
+	std::shared_ptr<Rectangle2D> rect = std::shared_ptr<Rectangle2D>(new Rectangle2D());
 	std::string id;
 	float cAlpha = 0, cRed = 0, cGreen = 0, cBlue = 0, x0 = 0, y0 = 0, z0 = 0, width = 0, height = 0;
 
@@ -250,8 +250,8 @@ std::shared_ptr<View> Parser::parseRectangle3D(std::ifstream& file, std::string 
 void Parser::initSupportedViews() {
 	//Rectange
 	std::pair <std::string, std::shared_ptr<View>(Parser::*) (std::ifstream& file, std::string currentLine, int current)> somePair1;
-	somePair1.first = "<Button>";
-	somePair1.second = &Parser::parseButton;
+	somePair1.first = "<Rectangle2D>";
+	somePair1.second = &Parser::parseRectangle2D;
 	supportedViewMap.insert(somePair1);
 
 	//Triangle

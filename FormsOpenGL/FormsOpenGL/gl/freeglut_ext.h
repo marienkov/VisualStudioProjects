@@ -183,7 +183,7 @@ FGAPI GLUTproc FGAPIENTRY glutGetProcAddress( const char *procName );
 #define GLUT_HAS_MULTI 1
 
 FGAPI void FGAPIENTRY glutMultiEntryFunc( void (* callback)( int, int ) );
-FGAPI void FGAPIENTRY glutMultiButtonFunc( void (* callback)( int, int, int, int, int ) );
+FGAPI void FGAPIENTRY glutMultiRectangle2DFunc( void (* callback)( int, int, int, int, int ) );
 FGAPI void FGAPIENTRY glutMultiMotionFunc( void (* callback)( int, int, int ) );
 FGAPI void FGAPIENTRY glutMultiPassiveFunc( void (* callback)( int, int, int ) );
 
@@ -197,7 +197,7 @@ FGAPI void FGAPIENTRY glutMultiPassiveFunc( void (* callback)( int, int, int ) )
  * "js" library.
  */
 int     glutJoystickGetNumAxes( int ident );
-int     glutJoystickGetNumButtons( int ident );
+int     glutJoystickGetNumRectangle2Ds( int ident );
 int     glutJoystickNotWorking( int ident );
 float   glutJoystickGetDeadBand( int ident, int axis );
 void    glutJoystickSetDeadBand( int ident, int axis, float db );

@@ -9,13 +9,14 @@
 class Triangle :
 	public View
 {
-private:
+protected:
+	static const int POSITION_COUNT = 3;
 	static const int VERTEX_COUNT = 3;
-	static const int INDEX_COUNT = 3;
 
-	VertexNormal vertexNormal[INDEX_COUNT];
-	VertexPosition vertexPosition[VERTEX_COUNT];
-	int index[INDEX_COUNT];
+private:
+	VertexNormal vertexNormal[VERTEX_COUNT];
+	VertexPosition vertexPosition[POSITION_COUNT];
+	int index[VERTEX_COUNT];
 
 	void initIndexes();
 public:

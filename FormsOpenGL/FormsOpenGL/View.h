@@ -31,10 +31,10 @@ public:
 	};
 
 protected:
-	std::string id;
+	const int POSITION_COUNT;
+	const int VERTEX_COUNT;
 
-	int vertexCount;
-	int indexCount;
+	std::string id;
 
 	float dx, dy, dz, angleX, angleY, angleZ, scaleX, scaleY, scaleZ;
 
@@ -50,7 +50,7 @@ protected:
 
 	void computeNormalTriangle(int first, int second, int third);
 public:
-	View(std::string id);
+	View(std::string id, int positionCount, int vertexCount);
 
 	virtual ~View();
 	void setId(std::string);
@@ -58,19 +58,19 @@ public:
 
 	float* getVertexColors();
 	int getVertexColorSize();
-	int getVertexColorLenght();
+	int getVertexColorCount();
 
 	float* getVertexNormals();
 	int getVertexNoramlsSize();
-	int getVertexNormalsLenght();
+	int getVertexNormalsCount();
 
-	float* getVertexPosition();
+	const float* getVertexPosition();
 	int getVertexPositionSize();
-	int getVertexPositionLenght();
+	int getVertexPositionCount();
 
 	int* getVertexIndexes();
 	int getVertexIndexSize();
-	int getVertexIndexLenght();
+	int getVertexIndexCount();
 
 	float* getModelMatrixData();
 

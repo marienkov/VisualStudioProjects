@@ -2,26 +2,20 @@
 #include "Visitor.h"
 
 Rectangle3D::Rectangle3D()
-	: View("") {
+	: View("", POSITION_COUNT, VERTEX_COUNT) {
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
-
-	vertexCount = VERTEX_COUNT;
-	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }
 
 Rectangle3D::Rectangle3D(std::string name) 
-	: View(name) {
+	: View(name, POSITION_COUNT, VERTEX_COUNT) {
 
 	pVertexNormal = vertexNormal;
 	pVertexPosition = vertexPosition;
 	pVertexIndex = index;
-
-	vertexCount = VERTEX_COUNT;
-	indexCount = INDEX_COUNT;
 
 	initIndexes();
 }
