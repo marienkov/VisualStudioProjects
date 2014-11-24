@@ -12,83 +12,13 @@ DrawerVisitor::~DrawerVisitor()
 	freeShader();
 }
 
-void DrawerVisitor::visit(Rectangle2D* view) {
+void DrawerVisitor::visit(View* view) {
 	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
 	glGenBuffers(1, &vId);
 	glBindBuffer(GL_ARRAY_BUFFER, vId);
 	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
 	glEnableVertexAttribArray(atrPosition);
 	glVertexAttribPointer(atrPosition, sizeof(View::VertexPosition)/sizeof(float), GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &nId);
-	glBindBuffer(GL_ARRAY_BUFFER, nId);
-	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
-	glEnableVertexAttribArray(atrNormal);
-	glVertexAttribPointer(atrNormal, sizeof(View::VertexNormal) / sizeof(float), GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &iId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
-
-	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, view->getModelMatrixData());
-
-	glUniform4fv(unifColor, 1, view->getVertexColors());
-
-	glDrawElements(GL_TRIANGLES, view->getVertexIndexCount(), GL_UNSIGNED_INT, 0);
-
-	glDisableVertexAttribArray(atrPosition);
-	glDisableVertexAttribArray(atrNormal);
-
-	glDeleteBuffers(1, &vId);
-	glDeleteBuffers(1, &nId);
-	glDeleteBuffers(1, &iId);
-}
-
-void DrawerVisitor::visit(Triangle* view) {
-	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
-
-	glGenBuffers(1, &vId);
-	glBindBuffer(GL_ARRAY_BUFFER, vId);
-	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
-	glEnableVertexAttribArray(atrPosition);
-	glVertexAttribPointer(atrPosition, sizeof(View::VertexPosition) / sizeof(float), GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &nId);
-	glBindBuffer(GL_ARRAY_BUFFER, nId);
-	glBufferData(GL_ARRAY_BUFFER, view->getVertexNoramlsSize(), view->getVertexNormals(), GL_STATIC_DRAW);
-	glEnableVertexAttribArray(atrNormal);
-	glVertexAttribPointer(atrNormal, sizeof(View::VertexNormal) / sizeof(float), GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &iId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, view->getVertexIndexSize(), view->getVertexIndexes(), GL_STATIC_DRAW);
-
-	glUniformMatrix4fv(unifMVP, 1, GL_TRUE, view->getModelMatrixData());
-
-	glUniform4fv(unifColor, 1, view->getVertexColors());
-
-	glDrawElements(GL_TRIANGLES, view->getVertexIndexCount(), GL_UNSIGNED_INT, 0);
-
-	glDisableVertexAttribArray(atrPosition);
-	glDisableVertexAttribArray(atrNormal);
-
-	glDeleteBuffers(1, &vId);
-	glDeleteBuffers(1, &nId);
-	glDeleteBuffers(1, &iId);
-}
-
-void DrawerVisitor::visit(Rectangle3D* view) {
-	GLuint vId = 0, iId = 0, cId = 0, nId = 0;
-
-	glGenBuffers(1, &vId);
-	glBindBuffer(GL_ARRAY_BUFFER, vId);
-	glBufferData(GL_ARRAY_BUFFER, view->getVertexPositionSize(), view->getVertexPosition(), GL_STATIC_DRAW);
-	glEnableVertexAttribArray(atrPosition);
-	glVertexAttribPointer(atrPosition, sizeof(View::VertexPosition) / sizeof(float), GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glGenBuffers(1, &nId);

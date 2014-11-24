@@ -18,9 +18,7 @@ public:
 	DrawerVisitor();
 	virtual ~DrawerVisitor();
 
-	void visit(Rectangle2D*);
-	void visit(Triangle*);
-	void visit(Rectangle3D*);
+	void visit(View* view);
 
 	void initShader();
 	void checkOpenGLerror();

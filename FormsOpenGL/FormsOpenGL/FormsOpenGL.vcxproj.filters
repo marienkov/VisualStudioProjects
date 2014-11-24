@@ -24,9 +24,6 @@
     <ClCompile Include="Parser.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Visitor.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="DrawerVisitor.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>

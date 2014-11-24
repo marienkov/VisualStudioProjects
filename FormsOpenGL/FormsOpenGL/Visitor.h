@@ -7,10 +7,8 @@
 class Visitor
 {
 public:
-	Visitor();
-	virtual ~Visitor();
+	Visitor() {};
+	virtual ~Visitor() {};
 
-	virtual void visit(Rectangle3D*) = 0;
-	virtual void visit(Triangle*) = 0;
-	virtual void visit(Rectangle2D*) = 0;
+	virtual void visit(View*) = 0;
 };
